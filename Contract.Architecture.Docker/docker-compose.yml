@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  api:
+    image: contractor-api
+    container_name: "contract-architecture-api"
+    ports:
+      - "5000:80"
+    restart: always
+    volumes: 
+      - "./api.config.json:/app/appsettings.json"
+      - "./api.log.config:/app/nlog.config"
+  web:
+    image: contractor-web:0.4.0
+    container_name: "contract-architecture-web"
+    ports:
+      - "4200:80"
+    restart: always
+    volumes: 
+      - "./web.config.js:/usr/share/nginx/html/config.js"
