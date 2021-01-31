@@ -12,5 +12,3 @@
 # Allgemein
 
 Die Contract Architektur ist eine Grundlage für organisierte Implementierung von Backendaufgaben.
-
-Die gesamte Dokumentation finden Sie im Azure DevOps Projekt unter dem Menüeintrag [Wiki](https://dev.azure.com/jhammerschmidt/Contract.Architecture/_wiki/wikis/Contract%20Architecture/29/README).
