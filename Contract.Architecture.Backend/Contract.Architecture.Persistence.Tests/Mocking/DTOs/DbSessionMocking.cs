@@ -1,4 +1,4 @@
-﻿using Contract.Architecture.Persistence.Model.Sessions.DTOs;
+﻿using Contract.Architecture.Persistence.Model.Sessions.Sessions;
 using System;
 
 namespace Contract.Architecture.Persistence.Tests.Mocking

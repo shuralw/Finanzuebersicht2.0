@@ -1,4 +1,4 @@
-﻿using Contract.Architecture.Persistence.Model.Users.DTOs;
+﻿using Contract.Architecture.Persistence.Model.Users.EmailUsers;
 using System;
 
 namespace Contract.Architecture.Persistence.Tests.Mocking

@@ -1,9 +1,10 @@
-﻿using Contract.Architecture.Contract.Persistence.Model.Sessions;
-using Contract.Architecture.Contract.Persistence.Model.Users;
-using Contract.Architecture.Persistence.Model.Sessions;
-using Contract.Architecture.Persistence.Model.Sessions.EfCore;
-using Contract.Architecture.Persistence.Model.Users;
-using Contract.Architecture.Persistence.Model.Users.EfCore;
+﻿using Contract.Architecture.Contract.Persistence.Model.Sessions.Sessions;
+using Contract.Architecture.Contract.Persistence.Model.Users.EmailUserPasswortReset;
+using Contract.Architecture.Contract.Persistence.Model.Users.EmailUsers;
+using Contract.Architecture.Persistence.Model;
+using Contract.Architecture.Persistence.Model.Sessions.Sessions;
+using Contract.Architecture.Persistence.Model.Users.EmailUserPasswortReset;
+using Contract.Architecture.Persistence.Model.Users.EmailUsers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Contract.Architecture.Persistence
@@ -12,20 +13,20 @@ namespace Contract.Architecture.Persistence
     {
         public static void Startup(IServiceCollection services)
         {
+            services.AddDbContext<PersistenceDbContext>();
+
             StartupUsers(services);
             StartupSessions(services);
         }
 
         private static void StartupUsers(IServiceCollection services)
         {
-            services.AddDbContext<UsersDbContext>();
             services.AddScoped<IEmailUsersRepository, EmailUsersRepository>();
-            services.AddScoped<IEmailUserPasswordResetTokenRepository, EmailUserPasswordResetTokenRepository>();
+            services.AddScoped<IEmailUserPasswortResetTokensRepository, EmailUserPasswortResetTokensRepository>();
         }
 
         private static void StartupSessions(IServiceCollection services)
         {
-            services.AddDbContext<SessionsDbContext>();
             services.AddScoped<ISessionsRepository, SessionsRepository>();
         }
     }

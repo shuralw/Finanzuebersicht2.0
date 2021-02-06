@@ -1,7 +1,7 @@
 ﻿using Contract.Architecture.API.Security;
 using Contract.Architecture.API.Security.Authorization;
 using Contract.Architecture.Contract.Logic.LogicResults;
-using Contract.Architecture.Contract.Logic.Model.Sessions;
+using Contract.Architecture.Contract.Logic.Model.Sessions.Sessions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

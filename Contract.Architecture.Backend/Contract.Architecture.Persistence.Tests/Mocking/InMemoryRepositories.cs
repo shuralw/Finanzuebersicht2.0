@@ -1,59 +1,45 @@
-﻿using Contract.Architecture.Persistence.Model.Sessions;
-using Contract.Architecture.Persistence.Model.Sessions.EfCore;
-using Contract.Architecture.Persistence.Model.Users;
-using Contract.Architecture.Persistence.Model.Users.EfCore;
+﻿using Contract.Architecture.Persistence.Model;
+using Contract.Architecture.Persistence.Model.Sessions.Sessions;
+using Contract.Architecture.Persistence.Model.Users.EmailUserPasswortReset;
+using Contract.Architecture.Persistence.Model.Users.EmailUsers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Contract.Architecture.Persistence.Tests.Mocking
 {
     public class InMemoryRepositories
     {
-        private UsersDbContext usersDbContext;
-        private SessionsDbContext sessionsDbContext;
+        private PersistenceDbContext persistenceDbContext;
 
         public InMemoryRepositories()
         {
-            this.CreateUsersDbContext();
-            this.CreateSessionsDbContext();
+            this.CreatePersistenceDbContext();
         }
 
         internal EmailUsersRepository GetEmailUsersRepository()
         {
-            return new EmailUsersRepository(this.usersDbContext);
+            return new EmailUsersRepository(this.persistenceDbContext);
         }
 
-        internal EmailUserPasswordResetTokenRepository GetEmailUserPasswordResetTokenRepository()
+        internal EmailUserPasswortResetTokensRepository GetEmailUserPasswordResetTokenRepository()
         {
-            return new EmailUserPasswordResetTokenRepository(this.usersDbContext);
+            return new EmailUserPasswortResetTokensRepository(this.persistenceDbContext);
         }
 
         internal SessionsRepository GetSessionsRepository()
         {
-            return new SessionsRepository(this.sessionsDbContext);
+            return new SessionsRepository(this.persistenceDbContext);
         }
 
-        private void CreateUsersDbContext()
+        private void CreatePersistenceDbContext()
         {
-            DbContextOptions<UsersDbContext> options;
-            var builder = new DbContextOptionsBuilder<UsersDbContext>();
+            DbContextOptions<PersistenceDbContext> options;
+            var builder = new DbContextOptionsBuilder<PersistenceDbContext>();
             builder.UseInMemoryDatabase("in-memory-db");
             options = builder.Options;
 
-            this.usersDbContext = UsersDbContext.CustomInstantiate(options);
-            this.usersDbContext.Database.EnsureDeleted();
-            this.usersDbContext.Database.EnsureCreated();
-        }
-
-        private void CreateSessionsDbContext()
-        {
-            DbContextOptions<SessionsDbContext> options;
-            var builder = new DbContextOptionsBuilder<SessionsDbContext>();
-            builder.UseInMemoryDatabase("in-memory-db");
-            options = builder.Options;
-
-            this.sessionsDbContext = SessionsDbContext.CustomInstantiate(options);
-            this.sessionsDbContext.Database.EnsureDeleted();
-            this.sessionsDbContext.Database.EnsureCreated();
+            this.persistenceDbContext = PersistenceDbContext.CustomInstantiate(options);
+            this.persistenceDbContext.Database.EnsureDeleted();
+            this.persistenceDbContext.Database.EnsureCreated();
         }
     }
 }

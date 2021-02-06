@@ -1,11 +1,15 @@
 ﻿using Contract.Architecture.Contract.Logic.Model.Sessions;
+using Contract.Architecture.Contract.Logic.Model.Sessions.Sessions;
 using Contract.Architecture.Contract.Logic.Model.Users;
+using Contract.Architecture.Contract.Logic.Model.Users.EmailUserPasswordReset;
+using Contract.Architecture.Contract.Logic.Model.Users.EmailUsers;
 using Contract.Architecture.Contract.Logic.Services.Email;
 using Contract.Architecture.Contract.Logic.Services.Identifier;
 using Contract.Architecture.Contract.Logic.Services.Password;
 using Contract.Architecture.Contract.Logic.Services.Time;
-using Contract.Architecture.Logic.Model.Sessions;
-using Contract.Architecture.Logic.Model.Users;
+using Contract.Architecture.Logic.Model.Sessions.Sessions;
+using Contract.Architecture.Logic.Model.Users.EmailUserPasswordReset;
+using Contract.Architecture.Logic.Model.Users.EmailUsers;
 using Contract.Architecture.Logic.Services.Email;
 using Contract.Architecture.Logic.Services.Identifier;
 using Contract.Architecture.Logic.Services.Password;
@@ -30,8 +34,10 @@ namespace Contract.Architecture.Logic
             // EmailUser
             services.AddScoped<IEmailUserLoginLogic, EmailUserLoginLogic>();
             services.AddScoped<IEmailUserPasswordChangeLogic, EmailUserPasswordChangeLogic>();
+            services.AddScoped<IEmailUserCrudLogic, EmailUserCrudLogic>();
+
+            // EmailUserPasswordReset
             services.AddScoped<IEmailUserPasswordResetLogic, EmailUserPasswordResetLogic>();
-            services.AddScoped<IEmailUserRegistrationLogic, EmailUserRegistrationLogic>();
             services.AddScheduledJob<EmailUserPasswordResetExpirationScheduledJob>();
             services.AddOptionsFromConfiguration<EmailUserPasswordResetOptions>(configuration);
         }
