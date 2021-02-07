@@ -67,7 +67,7 @@ namespace Contract.Architecture.Logic.Tests.Model.Users.EmailUsers
             // Arrange
             Mock<IEmailUsersRepository> emailUsersRepository = this.EmailUsersRepositoryDefaultGetEmailUser();
             Mock<IBsiPasswordService> bsiPasswordService = this.BsiPasswordServiceDefaultComparePasswords();
-            Mock<ISessionsLogic> sessionsLogic = this.SessionsLogicDefaultCreateSessionForEmailUser();
+            Mock<ISessionsCrudLogic> sessionsLogic = this.SessionsLogicDefaultCreateSessionForEmailUser();
 
             EmailUserLoginLogic emailUserLoginLogic = new EmailUserLoginLogic(
                 emailUsersRepository.Object,
@@ -128,9 +128,9 @@ namespace Contract.Architecture.Logic.Tests.Model.Users.EmailUsers
             return emailUsersRepository;
         }
 
-        private Mock<ISessionsLogic> SessionsLogicDefaultCreateSessionForEmailUser()
+        private Mock<ISessionsCrudLogic> SessionsLogicDefaultCreateSessionForEmailUser()
         {
-            Mock<ISessionsLogic> sessionsLogic = new Mock<ISessionsLogic>(MockBehavior.Strict);
+            Mock<ISessionsCrudLogic> sessionsLogic = new Mock<ISessionsCrudLogic>(MockBehavior.Strict);
             sessionsLogic.Setup(logic => logic.CreateSessionForEmailUser(It.IsAny<Guid>(), It.IsAny<string>()))
                 .Returns((Guid emailUserId, string name) =>
                 {

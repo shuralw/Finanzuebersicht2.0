@@ -29,11 +29,11 @@ namespace Contract.Architecture.Logic.Tests.Model.Sessions
             Mock<ISHA256TokenGenerator> sha256TokenGenerator = this.SetupSHA256TokenGenerator();
             Mock<ISessionsRepository> sessionsRepository = this.SetupSessionsRepositoryForEmailUser();
 
-            SessionsLogic sessionsLogic = new SessionsLogic(
+            SessionsCrudLogic sessionsLogic = new SessionsCrudLogic(
                 sessionsRepository.Object,
                 sha256TokenGenerator.Object,
                 this.DateTimeServiceDefaultNow().Object,
-                Mock.Of<ILogger<SessionsLogic>>(),
+                Mock.Of<ILogger<SessionsCrudLogic>>(),
                 this.SetupOptions());
 
             // Act
@@ -51,11 +51,11 @@ namespace Contract.Architecture.Logic.Tests.Model.Sessions
             // Arrange
             Mock<ISessionsRepository> sessionsRepository = this.SetupSessionsRepositoryForEmailUser();
 
-            SessionsLogic sessionsLogic = new SessionsLogic(
+            SessionsCrudLogic sessionsLogic = new SessionsCrudLogic(
                 sessionsRepository.Object,
                 null,
                 this.DateTimeServiceDefaultNow().Object,
-                Mock.Of<ILogger<SessionsLogic>>(),
+                Mock.Of<ILogger<SessionsCrudLogic>>(),
                 this.SetupOptions());
 
             // Act
@@ -76,11 +76,11 @@ namespace Contract.Architecture.Logic.Tests.Model.Sessions
             // Arrange
             Mock<ISessionsRepository> sessionsRepository = this.SetupSessionsRepositoryExpired();
 
-            SessionsLogic sessionsLogic = new SessionsLogic(
+            SessionsCrudLogic sessionsLogic = new SessionsCrudLogic(
                 sessionsRepository.Object,
                 null,
                 this.DateTimeServiceDefaultNow().Object,
-                Mock.Of<ILogger<SessionsLogic>>(),
+                Mock.Of<ILogger<SessionsCrudLogic>>(),
                 this.SetupOptions());
 
             // Act
@@ -96,11 +96,11 @@ namespace Contract.Architecture.Logic.Tests.Model.Sessions
             // Arrange
             Mock<ISessionsRepository> sessionsRepository = this.SetupSessionsRepositoryNotFound();
 
-            SessionsLogic sessionsLogic = new SessionsLogic(
+            SessionsCrudLogic sessionsLogic = new SessionsCrudLogic(
                 sessionsRepository.Object,
                 null,
                 this.DateTimeServiceDefaultNow().Object,
-                Mock.Of<ILogger<SessionsLogic>>(),
+                Mock.Of<ILogger<SessionsCrudLogic>>(),
                 this.SetupOptions());
 
             // Act
@@ -116,11 +116,11 @@ namespace Contract.Architecture.Logic.Tests.Model.Sessions
             // Arrange
             Mock<ISessionsRepository> sessionsRepository = this.SetupSessionsRepositoryForEmailUser();
 
-            SessionsLogic sessionsLogic = new SessionsLogic(
+            SessionsCrudLogic sessionsLogic = new SessionsCrudLogic(
                 sessionsRepository.Object,
                 null,
                 this.DateTimeServiceDefaultNow().Object,
-                Mock.Of<ILogger<SessionsLogic>>(),
+                Mock.Of<ILogger<SessionsCrudLogic>>(),
                 this.SetupOptions());
 
             // Act
@@ -137,11 +137,11 @@ namespace Contract.Architecture.Logic.Tests.Model.Sessions
             // Arrange
             Mock<ISessionsRepository> sessionsRepository = this.SetupSessionsRepositoryNotFound();
 
-            SessionsLogic sessionsLogic = new SessionsLogic(
+            SessionsCrudLogic sessionsLogic = new SessionsCrudLogic(
                 sessionsRepository.Object,
                 null,
                 this.DateTimeServiceDefaultNow().Object,
-                Mock.Of<ILogger<SessionsLogic>>(),
+                Mock.Of<ILogger<SessionsCrudLogic>>(),
                 this.SetupOptions());
 
             // Act

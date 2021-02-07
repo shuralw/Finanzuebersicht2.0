@@ -10,21 +10,21 @@ using System;
 
 namespace Contract.Architecture.Logic.Model.Sessions.Sessions
 {
-    internal class SessionsLogic : ISessionsLogic
+    internal class SessionsCrudLogic : ISessionsCrudLogic
     {
         private readonly ISessionsRepository sessionsRepository;
 
         private readonly IDateTimeService dateTimeService;
         private readonly ISHA256TokenGenerator sha256TokenGenerator;
-        private readonly ILogger<SessionsLogic> logger;
+        private readonly ILogger<SessionsCrudLogic> logger;
 
         private readonly SessionExpirationOptions options;
 
-        public SessionsLogic(
+        public SessionsCrudLogic(
             ISessionsRepository sessionsRepository,
             ISHA256TokenGenerator sha256TokenGenerator,
             IDateTimeService dateTimeService,
-            ILogger<SessionsLogic> logger,
+            ILogger<SessionsCrudLogic> logger,
             IOptions<SessionExpirationOptions> options)
         {
             this.sessionsRepository = sessionsRepository;

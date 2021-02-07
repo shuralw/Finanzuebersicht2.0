@@ -7,11 +7,11 @@ namespace Contract.Architecture.API.Model.Users.EmailUsers
 {
     [ApiController]
     [Route("api/users/email-user")]
-    public class EmailUserController : ControllerBase
+    public class EmailUserCrudController : ControllerBase
     {
         private readonly IEmailUserCrudLogic emailUsersLogic;
 
-        public EmailUserController(
+        public EmailUserCrudController(
             IEmailUserCrudLogic emailUsersLogic)
         {
             this.emailUsersLogic = emailUsersLogic;

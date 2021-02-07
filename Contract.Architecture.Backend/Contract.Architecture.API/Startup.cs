@@ -30,7 +30,7 @@ namespace Contract.Architecture.API
 
             CrossOriginResourceSharing.Configure(services, this.configuration);
 
-            services.AddAuthentication(TokenAuthentication.Scheme).AddTokenAuthentication<ISessionsLogic>();
+            services.AddAuthentication(TokenAuthentication.Scheme).AddTokenAuthentication<ISessionsCrudLogic>();
 
             services.AddControllers();
 

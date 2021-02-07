@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Model\Sessions\Sessions\Test\**" />
+    <EmbeddedResource Remove="Model\Sessions\Sessions\Test\**" />
+    <None Remove="Model\Sessions\Sessions\Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
 

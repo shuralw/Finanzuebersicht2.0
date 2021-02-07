@@ -11,14 +11,14 @@ namespace Contract.Architecture.Logic.Model.Users.EmailUsers
     internal class EmailUserLoginLogic : IEmailUserLoginLogic
     {
         private readonly IEmailUsersRepository emailUsersRepository;
-        private readonly ISessionsLogic sessionsLogic;
+        private readonly ISessionsCrudLogic sessionsLogic;
 
         private readonly IBsiPasswordService bsiPasswordService;
         private readonly ILogger<EmailUserLoginLogic> logger;
 
         public EmailUserLoginLogic(
             IEmailUsersRepository emailUsersRepository,
-            ISessionsLogic sessionsLogic,
+            ISessionsCrudLogic sessionsLogic,
             IBsiPasswordService bsiPasswordService,
             ILogger<EmailUserLoginLogic> logger)
         {

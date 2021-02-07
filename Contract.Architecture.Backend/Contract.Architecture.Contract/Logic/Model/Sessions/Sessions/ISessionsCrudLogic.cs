@@ -3,7 +3,7 @@ using System;
 
 namespace Contract.Architecture.Contract.Logic.Model.Sessions.Sessions
 {
-    public interface ISessionsLogic
+    public interface ISessionsCrudLogic
     {
         string CreateSessionForEmailUser(Guid emailUserId, string name);
 

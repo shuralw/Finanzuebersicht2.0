@@ -45,7 +45,7 @@ namespace Contract.Architecture.Logic
         private static void StartupSessions(IServiceCollection services, IConfiguration configuration)
         {
             // Sessions
-            services.AddScoped<ISessionsLogic, SessionsLogic>();
+            services.AddScoped<ISessionsCrudLogic, SessionsCrudLogic>();
             services.AddScheduledJob<SessionExpirationScheduledJob>();
             services.AddOptionsFromConfiguration<SessionExpirationOptions>(configuration);
         }

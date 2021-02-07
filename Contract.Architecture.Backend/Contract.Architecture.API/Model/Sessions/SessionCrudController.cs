@@ -9,15 +9,15 @@ namespace Contract.Architecture.API.Model.Sessions
 {
     [ApiController]
     [Route("api/session")]
-    public class SessionController : ControllerBase
+    public class SessionCrudController : ControllerBase
     {
-        private readonly ISessionsLogic sessionsLogic;
+        private readonly ISessionsCrudLogic sessionsLogic;
 
-        private readonly ILogger<SessionController> logger;
+        private readonly ILogger<SessionCrudController> logger;
 
-        public SessionController(
-            ISessionsLogic sessionsLogic,
-            ILogger<SessionController> logger)
+        public SessionCrudController(
+            ISessionsCrudLogic sessionsLogic,
+            ILogger<SessionCrudController> logger)
         {
             this.sessionsLogic = sessionsLogic;
             this.logger = logger;

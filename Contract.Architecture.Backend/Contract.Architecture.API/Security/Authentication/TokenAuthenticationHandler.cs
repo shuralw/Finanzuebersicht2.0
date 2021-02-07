@@ -15,14 +15,14 @@ namespace Contract.Architecture.API.Security.Authentication
 {
     public class TokenAuthenticationHandler : AuthenticationHandler<TokenAuthenticationOptions>
     {
-        private readonly ISessionsLogic sessionsLogic;
+        private readonly ISessionsCrudLogic sessionsLogic;
 
         public TokenAuthenticationHandler(
             IOptionsMonitor<TokenAuthenticationOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock,
-            ISessionsLogic sessionsLogic)
+            ISessionsCrudLogic sessionsLogic)
             : base(options, logger, encoder, clock)
         {
             this.sessionsLogic = sessionsLogic;
