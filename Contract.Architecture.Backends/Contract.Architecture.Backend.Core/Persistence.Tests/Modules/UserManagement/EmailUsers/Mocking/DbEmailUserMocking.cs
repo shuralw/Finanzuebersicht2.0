@@ -5,12 +5,12 @@ namespace Contract.Architecture.Backend.Core.Persistence.Tests.Modules.UserManag
 {
     internal static class DbEmailUserMocking
     {
-        internal static DbEmailUser CreateWithMandant()
+        internal static DbEmailUser Create()
         {
-            return CreateWithMandant(Guid.NewGuid());
+            return Create(Guid.NewGuid());
         }
 
-        internal static DbEmailUser CreateWithMandant(Guid id)
+        internal static DbEmailUser Create(Guid id)
         {
             return new DbEmailUser()
             {

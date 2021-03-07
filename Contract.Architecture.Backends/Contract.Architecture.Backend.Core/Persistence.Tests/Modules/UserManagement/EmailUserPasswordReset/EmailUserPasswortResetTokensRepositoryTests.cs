@@ -25,7 +25,7 @@ namespace Contract.Architecture.Backend.Core.Persistence.Tests.Modules.UserManag
             // Arrange
             InMemoryRepositories repos = new InMemoryRepositories();
             EmailUsersRepository emailUsersRepository = repos.GetEmailUsersRepository();
-            IDbEmailUser emailUserToAdd = DbEmailUserMocking.CreateWithMandant();
+            IDbEmailUser emailUserToAdd = DbEmailUserMocking.Create();
             emailUsersRepository.CreateEmailUser(emailUserToAdd);
 
             EmailUserPasswortResetTokensRepository emailUserPasswordResetTokenRepository = repos.GetEmailUserPasswordResetTokenRepository();
@@ -53,7 +53,7 @@ namespace Contract.Architecture.Backend.Core.Persistence.Tests.Modules.UserManag
             // Arrange
             InMemoryRepositories repos = new InMemoryRepositories();
             EmailUsersRepository emailUsersRepository = repos.GetEmailUsersRepository();
-            IDbEmailUser emailUserToAdd = DbEmailUserMocking.CreateWithMandant();
+            IDbEmailUser emailUserToAdd = DbEmailUserMocking.Create();
             emailUsersRepository.CreateEmailUser(emailUserToAdd);
 
             EmailUserPasswortResetTokensRepository emailUserPasswordResetTokenRepository = repos.GetEmailUserPasswordResetTokenRepository();
@@ -81,7 +81,7 @@ namespace Contract.Architecture.Backend.Core.Persistence.Tests.Modules.UserManag
             InMemoryRepositories repos = new InMemoryRepositories();
 
             EmailUsersRepository emailUsersRepository = repos.GetEmailUsersRepository();
-            IDbEmailUser emailUserToAdd = DbEmailUserMocking.CreateWithMandant();
+            IDbEmailUser emailUserToAdd = DbEmailUserMocking.Create();
             emailUsersRepository.CreateEmailUser(emailUserToAdd);
 
             EmailUserPasswortResetTokensRepository emailUserPasswordResetTokenRepository = repos.GetEmailUserPasswordResetTokenRepository();

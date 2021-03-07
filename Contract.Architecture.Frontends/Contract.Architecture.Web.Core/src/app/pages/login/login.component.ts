@@ -39,8 +39,6 @@ export class LoginComponent {
       this.errorMessage = 'Die Verbindung zum Server ist fehlgeschlagen.';
     } else if (e.status === 400 || e.status === 404) {
       this.errorMessage = 'E-Mail Adresse oder Passwort inkorrekt';
-    } else if (e.status === 403) {
-      this.errorMessage = 'Der Mandant ist deaktiviert.';
     } else {
       this.errorMessage = 'Unbekannter Fehler';
     }
