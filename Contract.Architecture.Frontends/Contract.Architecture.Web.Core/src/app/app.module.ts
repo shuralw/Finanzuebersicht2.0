@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UiComponentsModule } from './components/ui/ui-components.module';
 import { SessionServicesModule } from './model/sessions/sessions-services.module';
+import { BackendCoreService } from './services/rest/backend-core.service';
 import { RestService } from './services/rest/rest.service';
 
 @NgModule({
@@ -16,10 +17,11 @@ import { RestService } from './services/rest/rest.service';
     HttpClientModule,
     UiComponentsModule,
     SessionServicesModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
-    RestService
+    RestService,
+    BackendCoreService,
   ],
   bootstrap: [AppComponent]
 })
