@@ -7,6 +7,7 @@ import { UiComponentsModule } from './components/ui/ui-components.module';
 import { SessionServicesModule } from './model/sessions/sessions-services.module';
 import { BackendCoreService } from './services/rest/backend-core.service';
 import { RestService } from './services/rest/rest.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { RestService } from './services/rest/rest.service';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     UiComponentsModule,
     SessionServicesModule,
