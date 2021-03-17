@@ -3,6 +3,11 @@ import { Router } from '@angular/router';
 import { SessionService } from './model/sessions/sessions.service';
 import { RestService } from './services/rest/rest.service';
 
+interface MenuItem {
+  name: string;
+  url: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,6 +16,10 @@ import { RestService } from './services/rest/rest.service';
 export class AppComponent implements OnInit {
 
   loading = true;
+
+  menu: MenuItem[] = [
+    { name: 'Home', url: '/home' }
+  ];
 
   constructor(
     private restService: RestService,
