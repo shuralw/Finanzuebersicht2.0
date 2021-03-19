@@ -4,11 +4,11 @@ import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-search-dropdown',
-  templateUrl: './search-dropdown.component.html',
-  styleUrls: ['./search-dropdown.component.scss']
+  selector: 'app-table-filter-bar-dropdown-multiple',
+  templateUrl: './table-filter-bar-dropdown-multiple.component.html',
+  styleUrls: ['./table-filter-bar-dropdown-multiple.component.scss']
 })
-export class SearchDropdownComponent<T> implements OnInit, OnDestroy {
+export class TableFilterBarDropdownMultipleComponent<T> implements OnInit, OnDestroy {
 
   dataSource: T[];
   @Input('dataSource') set _dataSource(dataSource: T[]) {
@@ -17,14 +17,14 @@ export class SearchDropdownComponent<T> implements OnInit, OnDestroy {
       this.updateDataSource();
     }
   }
-  selectedDataSourceItem: T;
+  selectedDataSourceItems: T[];
 
-  value: any;
-  @Input('value') set _value(value: any) {
-    this.value = value;
+  values: any[];
+  @Input('values') set _values(values: any[]) {
+    this.values = values;
     this.updateDataSource();
   }
-  @Output() valueChange = new EventEmitter<any>();
+  @Output() valuesChange = new EventEmitter<any>();
 
   valueExpr: any;
   @Input('valueExpr') set _valueExpr(valueExpr: any) {
@@ -62,8 +62,11 @@ export class SearchDropdownComponent<T> implements OnInit, OnDestroy {
   }
 
   updateDataSource(): void {
-    if (this.dataSource && this.value && this.valueExpr) {
-      this.selectedDataSourceItem = this.dataSource.find(item => item[this.valueExpr] === this.value);
+    if (this.dataSource && this.values && this.valueExpr) {
+      for (let i = 0; i < this.values.length; i++) {
+        const value = this.values[i];
+        this.selectedDataSourceItems[i] = this.dataSource.find(item => item[this.valueExpr] === value);
+      }
     }
 
     if (this.dataSource && this.displayExpr) {
@@ -73,12 +76,13 @@ export class SearchDropdownComponent<T> implements OnInit, OnDestroy {
     this.filterDataSource();
   }
 
-  onSelectedDataSourceItemChange(newSelectedDataSource: T): void {
-    this.selectedDataSourceItem = newSelectedDataSource;
+  onSelectedDataSourceItemChange(newSelectedDataSource: T[]): void {
+    this.selectedDataSourceItems = newSelectedDataSource;
 
     if (this.valueExpr) {
-      this.value = this.selectedDataSourceItem[this.valueExpr];
-      this.valueChange.emit(this.value);
+      this.values = this.selectedDataSourceItems
+        .map(selectedDataSourceItem => selectedDataSourceItem[this.valueExpr]);
+      this.valuesChange.emit(this.values);
     }
   }
 

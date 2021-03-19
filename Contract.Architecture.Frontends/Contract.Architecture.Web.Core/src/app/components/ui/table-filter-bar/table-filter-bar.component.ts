@@ -9,18 +9,30 @@ import { TableFilterBarDropdownItem } from './table-filter-bar-dropdown-item';
 export class TableFilterBarComponent implements OnInit {
 
   @Input() filterItems: TableFilterBarDropdownItem[];
-  
-  @Input() value: any[];
-  @Output() valueChange = new EventEmitter<any[]>();
+
+  @Input() filterItemsValues: any[][];
+  @Output() filterItemsValuesChange = new EventEmitter<any[]>();
+
+  currentFilterTerm = '';
+  @Output() filterTermChange = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onValueChange(value: any, index: number): void {
-    this.value[index] = value;
-    this.valueChange.emit(this.value);
+  onFilterItemValuesChange(filterItemValues: any, index: number): void {
+    this.filterItemsValues[index] = filterItemValues;
+    this.filterItemsValuesChange.emit(this.filterItemsValues);
+  }
+
+  onFilterTermChange(event: any) {
+    const filterTerm = event.target.value;
+
+    if (this.currentFilterTerm != filterTerm) {
+      this.currentFilterTerm = filterTerm;
+      this.filterTermChange.emit(filterTerm);
+    }
   }
 
 }

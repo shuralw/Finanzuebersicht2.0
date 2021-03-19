@@ -42,11 +42,8 @@ export class TableFilterBarDropdownComponent<T> implements OnInit, OnDestroy {
 
   // ----------- TAKEN FROM EXAMPLE -----------
 
-  /** control for the selected bank */
-  public bankCtrl: FormControl = new FormControl();
-
   /** control for the MatSelect filter keyword */
-  public bankFilterCtrl: FormControl = new FormControl();
+  public filterCtrl: FormControl = new FormControl();
 
   /** list of dataSource filtered by search keyword */
   public filteredDataSource: ReplaySubject<T[]> = new ReplaySubject<T[]>(1);
@@ -89,7 +86,7 @@ export class TableFilterBarDropdownComponent<T> implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // listen for search field value changes
-    this.bankFilterCtrl.valueChanges
+    this.filterCtrl.valueChanges
       .pipe(takeUntil(this.onDestroy))
       .subscribe(() => {
         this.filterDataSource();
@@ -107,7 +104,7 @@ export class TableFilterBarDropdownComponent<T> implements OnInit, OnDestroy {
     }
 
     // get the search keyword
-    let search = this.bankFilterCtrl.value;
+    let search = this.filterCtrl.value;
     if (!search) {
       this.filteredDataSource.next(this.dataSource.slice());
       return;
@@ -117,7 +114,7 @@ export class TableFilterBarDropdownComponent<T> implements OnInit, OnDestroy {
 
     // filter the dataSource
     this.filteredDataSource.next(
-      this.dataSource.filter(bank => bank[this.displayExpr].toLowerCase().indexOf(search) > -1)
+      this.dataSource.filter(item => item[this.displayExpr].toLowerCase().indexOf(search) > -1)
     );
   }
 }
