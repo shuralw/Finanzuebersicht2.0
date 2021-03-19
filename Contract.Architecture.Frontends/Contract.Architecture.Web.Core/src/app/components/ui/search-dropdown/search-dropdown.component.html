@@ -1,0 +1,13 @@
+<mat-form-field appearance="outline">
+    <mat-label>{{label}}</mat-label>
+    <mat-select disableOptionCentering panelClass="searchDropdownPanel" [value]="selectedDataSourceItem"
+        (valueChange)="onSelectedDataSourceItemChange($event)">
+        <mat-option>
+            <ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search>
+        </mat-option>
+
+        <mat-option *ngFor="let dataSourceItem of filteredDataSource | async" [value]="dataSourceItem">
+            {{getDisplayname(dataSourceItem)}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
