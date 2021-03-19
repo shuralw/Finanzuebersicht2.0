@@ -1,0 +1,27 @@
+.filter-bar {
+    height: 32px;
+    padding: 8px;
+
+    background-color: #e6e6e6;
+
+    display: grid;
+    grid-template-columns: 32px auto repeat(var(--count), min-content);
+    align-items: center;
+
+    .search-icon {
+        .mat-icon {
+            display: block;
+        }
+    }
+
+    .search-input {
+        input {
+            width: 100%;
+            font-size: 1.2em;
+        }
+    }
+
+    .filter-item {
+        padding: 0 8px;
+    }
+}
