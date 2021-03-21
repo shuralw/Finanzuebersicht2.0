@@ -26,10 +26,10 @@ export class TableFilterBarComponent implements OnInit {
     this.filterItemsValuesChange.emit(this.filterItemsValues);
   }
 
-  onFilterTermChange(event: any) {
+  onFilterTermChange(event: any): void {
     const filterTerm = event.target.value;
 
-    if (this.currentFilterTerm != filterTerm) {
+    if (this.currentFilterTerm !== filterTerm) {
       this.currentFilterTerm = filterTerm;
       this.filterTermChange.emit(filterTerm);
     }
