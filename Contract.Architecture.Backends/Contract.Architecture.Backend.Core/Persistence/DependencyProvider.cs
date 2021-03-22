@@ -1,7 +1,6 @@
 ﻿using Contract.Architecture.Backend.Core.Contract.Persistence.Modules.SessionManagement.Sessions;
 using Contract.Architecture.Backend.Core.Contract.Persistence.Modules.UserManagement.EmailUserPasswortResetTokens;
 using Contract.Architecture.Backend.Core.Contract.Persistence.Modules.UserManagement.EmailUsers;
-using Contract.Architecture.Backend.Core.Persistence;
 using Contract.Architecture.Backend.Core.Persistence.Modules.SessionManagement.Sessions;
 using Contract.Architecture.Backend.Core.Persistence.Modules.UserManagement.EmailUserPasswortReset;
 using Contract.Architecture.Backend.Core.Persistence.Modules.UserManagement.EmailUsers;

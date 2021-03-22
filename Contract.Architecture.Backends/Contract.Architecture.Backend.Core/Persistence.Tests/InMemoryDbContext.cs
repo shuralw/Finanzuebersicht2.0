@@ -1,5 +1,4 @@
-﻿using Contract.Architecture.Backend.Core.Persistence;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Contract.Architecture.Backend.Core.Persistence.Tests
 {
