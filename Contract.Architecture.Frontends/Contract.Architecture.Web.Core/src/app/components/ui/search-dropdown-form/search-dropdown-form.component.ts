@@ -4,14 +4,6 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { ReplaySubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
-
 @Component({
   selector: 'app-search-dropdown-form',
   templateUrl: './search-dropdown-form.component.html',
@@ -19,12 +11,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class SearchDropdownFormComponent<T> implements OnInit, OnDestroy {
 
-  matcher = new MyErrorStateMatcher();
-
   @Input() formGroupInstance: FormGroup;
   @Input() formControlNameInstance: string;
 
   @Input() label: string;
+  @Input() required = false;
 
   dataSource: T[];
   @Input('dataSource') set _dataSource(dataSource: T[]) {

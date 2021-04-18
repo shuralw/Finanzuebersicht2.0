@@ -1,6 +1,7 @@
-<mat-form-field appearance="outline" [formGroup]="formGroupInstance">
+<mat-form-field appearance="outline" [formGroup]="formGroupInstance" [floatLabel]="'always'">
     <mat-label>{{label}}</mat-label>
-    <mat-select disableOptionCentering panelClass="searchDropdownPanel" [formControlName]="formControlNameInstance">
+    <mat-select [required]="required" [placeholder]="label" disableOptionCentering panelClass="searchDropdownPanel"
+        [formControlName]="formControlNameInstance">
         <mat-option>
             <ngx-mat-select-search [formControl]="filterCtrl"></ngx-mat-select-search>
         </mat-option>
