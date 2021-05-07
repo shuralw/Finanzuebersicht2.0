@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionService } from './model/sessions/sessions.service';
 import { RestService } from './services/backend/rest.service';
@@ -13,13 +13,17 @@ interface MenuItem {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
 
   loading = true;
 
   menu: MenuItem[] = [
     { name: 'Home', url: '/home' }
   ];
+
+  @ViewChild('content') content: ElementRef;
+  calculatedContentWidthInPx = 0;
+  calculatedContentHeightInPx = 0;
 
   constructor(
     private restService: RestService,
@@ -39,6 +43,15 @@ export class AppComponent implements OnInit {
     });
 
     this.loading = false;
+  }
+
+  ngAfterViewChecked(): void {
+    this.calculateContentSize();
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    this.calculateContentSize();
   }
 
   goBack(): void {
@@ -62,6 +75,18 @@ export class AppComponent implements OnInit {
   async logout(): Promise<void> {
     await this.sessionService.logout();
     await this.router.navigate(['/login']);
+  }
+
+  private calculateContentSize(): void {
+    setTimeout(() => {
+      const contentElement = this.content.nativeElement as HTMLElement;
+
+      // Content-Element-Width - Content-Element-Padding
+      this.calculatedContentWidthInPx = contentElement.clientWidth - 36;
+
+      // Content-Element-Height - Content-Element-Padding
+      this.calculatedContentHeightInPx = contentElement.clientHeight - 12;
+    });
   }
 
 }

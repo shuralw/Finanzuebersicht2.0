@@ -18,7 +18,8 @@
     <div *ngIf="loading" class="loading-spinner-container">
       <app-loading-spinner></app-loading-spinner>
     </div>
-    <div class="app-content" *ngIf="!loading">
+    <div #content class="app-content" *ngIf="!loading" [style.--content-width.px]="calculatedContentWidthInPx"
+      [style.--content-height.px]="calculatedContentHeightInPx">
       <router-outlet></router-outlet>
     </div>
   </mat-drawer-content>
