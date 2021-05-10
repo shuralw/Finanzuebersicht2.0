@@ -82,10 +82,10 @@ export class AppComponent implements OnInit, AfterViewChecked {
       const contentElement = this.content.nativeElement as HTMLElement;
 
       // Content-Element-Width - Content-Element-Padding
-      this.calculatedContentWidthInPx = contentElement.clientWidth - 36;
+      this.calculatedContentWidthInPx = contentElement.clientWidth - 24;
 
       // Content-Element-Height - Content-Element-Padding
-      this.calculatedContentHeightInPx = contentElement.clientHeight - 12;
+      this.calculatedContentHeightInPx = contentElement.clientHeight - 24;
     });
   }
 
