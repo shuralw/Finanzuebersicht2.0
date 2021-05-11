@@ -1,0 +1,13 @@
+<mat-dialog-content>
+    <p>
+        {{message}}
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions [attr.align]="'center'">
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">
+        {{confirmButtonText}}
+    </button>
+    <button mat-button [mat-dialog-close]="false">
+        {{cancelButtonText}}
+    </button>
+</mat-dialog-actions>
