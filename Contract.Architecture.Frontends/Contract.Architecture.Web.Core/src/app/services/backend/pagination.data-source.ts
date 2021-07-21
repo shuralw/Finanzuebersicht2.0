@@ -1,9 +1,9 @@
 import { DataSource } from '@angular/cdk/collections';
+import { EventEmitter } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { TableFilterBarComponent } from 'src/app/components/ui/table-filter-bar/table-filter-bar.component';
 import { IPaginationFilterItem, IPaginationOptions } from 'src/app/services/backend/i-pagionation-options';
 import { IPagedResult } from './i-paged-result';
 
@@ -12,6 +12,7 @@ export class PaginationDataSource<T> implements DataSource<T> {
     private paginationSubject = new BehaviorSubject<T[]>([]);
     private paginationTotalCountSubject = new BehaviorSubject<number>(0);
     private loadingSubject = new BehaviorSubject<boolean>(false);
+    private updateTriggered = new EventEmitter<void>();
 
     public totalCount$ = this.paginationTotalCountSubject.asObservable();
     public loading$ = this.loadingSubject.asObservable();
@@ -22,15 +23,13 @@ export class PaginationDataSource<T> implements DataSource<T> {
     }
 
     public initialize(
-        tableFilterBarComponent: TableFilterBarComponent,
         matPaginator: MatPaginator,
         matSort: MatSort): void {
         this.loadData({ limit: 10, offset: 0 });
 
         merge(
             matSort.sortChange,
-            tableFilterBarComponent.filterTermChange,
-            tableFilterBarComponent.filterItemsValuesChange)
+            this.updateTriggered.asObservable())
             .pipe(
                 tap(() => matPaginator.pageIndex = 0),
             ).subscribe();
@@ -38,8 +37,7 @@ export class PaginationDataSource<T> implements DataSource<T> {
         merge(
             matSort.sortChange,
             matPaginator.page,
-            tableFilterBarComponent.filterTermChange,
-            tableFilterBarComponent.filterItemsValuesChange)
+            this.updateTriggered.asObservable())
             .pipe(
                 tap(() => {
                     const options: IPaginationOptions = {
@@ -52,6 +50,10 @@ export class PaginationDataSource<T> implements DataSource<T> {
                     this.loadData(options);
                 })
             ).subscribe();
+    }
+
+    triggerUpdate(): void {
+        this.updateTriggered.emit();
     }
 
     connect(): Observable<T[]> {

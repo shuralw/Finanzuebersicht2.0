@@ -1,7 +1,9 @@
 .table-filter-bar-dropdown-multiple {
-    padding: 6px;
+    padding: 0.5em;
+    cursor: pointer;
 
     &:hover,
+    &.open,
     &:focus-within {
         background-color: #c6c6c6;
     }
@@ -17,7 +19,15 @@ mat-select {
     min-width: 30px;
     max-width: 300px;
 }
+
 ::ng-deep mat-select .mat-select-placeholder {
     width: fit-content;
     min-width: 30px;
+}
+
+.loading-item {
+    margin: 8px;
+    justify-content: center;
+    display: grid;
+    overflow: hidden;
 }

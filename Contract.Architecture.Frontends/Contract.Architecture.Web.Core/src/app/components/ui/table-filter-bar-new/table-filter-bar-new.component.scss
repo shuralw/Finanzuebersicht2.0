@@ -1,0 +1,16 @@
+.filter-bar {
+    height: 2.2em;
+    padding: 0.3em;
+    background-color: #e6e6e6;
+}
+
+::ng-deep {
+    .filter-bar > * {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    app-table-filter-bar-input {
+        max-width: fit-content;
+    }
+}
