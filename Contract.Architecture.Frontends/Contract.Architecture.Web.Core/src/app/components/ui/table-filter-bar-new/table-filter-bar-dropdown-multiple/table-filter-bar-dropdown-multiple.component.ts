@@ -2,8 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, ViewC
 import { FormControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { Subject, Subscription } from 'rxjs';
-import { debounceTime, distinct, tap } from 'rxjs/operators';
-import { distinctByField } from 'src/app/helpers/distinct';
+import { debounceTime, distinct, filter, tap } from 'rxjs/operators';
 import { MultiDataSource } from './multi-data-source';
 
 @Component({
@@ -58,6 +57,10 @@ export class TableFilterBarDropdownMultipleComponent<T> implements AfterViewInit
   }
 
   getDisplayname(value: T): string {
+    if (value == null) {
+      return '';
+    }
+
     if (this.displayExpr) {
       return value[this.displayExpr];
     } else {
@@ -89,8 +92,11 @@ export class TableFilterBarDropdownMultipleComponent<T> implements AfterViewInit
     if (this.dataSource && this.values && this.valueExpr) {
       this.dataSubscription = this.dataSource.data$.subscribe((data: T[]) => {
         const scrollTop = this.scrollElement?.scrollTop;
-        this.data = distinctByField(this.selectedDataItems.concat(data), this.valueExpr);
-        this.selectedDataItems = this.values.map(value => this.data.find(dataItem => dataItem[this.valueExpr] === value));
+        this.selectedDataItems = this.values.map(value => data.find(dataItem => dataItem[this.valueExpr] === value));
+        this.data = data.filter(dataItem => {
+          return this.selectedDataItems
+            .find(selectedDataItem => selectedDataItem[this.valueExpr] === dataItem[this.valueExpr]) == null;
+        });
 
         if (scrollTop) {
           setTimeout(() => {
@@ -104,7 +110,8 @@ export class TableFilterBarDropdownMultipleComponent<T> implements AfterViewInit
       // listen for search field value changes
       this.filterSubscription = this.filterCtrl.valueChanges
         .pipe(
-          tap(() => this.data = this.selectedDataItems.slice()),
+          filter((filterTerm) => this.dataSource.isNewFilterTerm(filterTerm)),
+          tap(() => this.data = []),
           debounceTime(500),
         )
         .subscribe(value => this.dataSource.filter(value));

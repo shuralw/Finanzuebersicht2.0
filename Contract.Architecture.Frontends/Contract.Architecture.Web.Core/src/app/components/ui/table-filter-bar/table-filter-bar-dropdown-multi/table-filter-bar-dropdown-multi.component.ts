@@ -1,10 +1,10 @@
-import { AfterViewChecked, AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinct, tap } from 'rxjs/operators';
 import { distinctByField } from 'src/app/helpers/distinct';
-import { MultiDataSource } from './multi-data-source';
+import { MultiDataSource } from '../../table-filter-bar-new/table-filter-bar-dropdown-multiple/multi-data-source';
 
 @Component({
   selector: 'app-table-filter-bar-dropdown-multi',

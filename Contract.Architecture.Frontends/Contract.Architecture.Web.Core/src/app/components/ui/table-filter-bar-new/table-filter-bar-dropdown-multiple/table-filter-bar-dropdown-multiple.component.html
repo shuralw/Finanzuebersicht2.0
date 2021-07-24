@@ -6,6 +6,14 @@
                 [hideClearSearchButton]="false"></ngx-mat-select-search>
         </mat-option>
 
+        <ng-container *ngIf="selectedDataItems.length > 0">
+            <mat-option *ngFor="let dataItem of selectedDataItems" [value]="dataItem">
+                {{getDisplayname(dataItem)}}
+            </mat-option>
+
+            <hr>
+        </ng-container>
+
         <mat-option *ngFor="let dataItem of data" [value]="dataItem">
             {{getDisplayname(dataItem)}}
         </mat-option>

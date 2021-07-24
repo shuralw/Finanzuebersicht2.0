@@ -43,6 +43,10 @@ export class MultiDataSource<T> {
         }
     }
 
+    public isNewFilterTerm(filterTerm: string): boolean {
+        return filterTerm !== this.filterTerm;
+    }
+
     private loadData(): void {
         this.loading = true;
         this.loadingSubject.next(true);

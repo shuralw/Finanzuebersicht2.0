@@ -4,7 +4,7 @@ import { MatSelect } from '@angular/material/select';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinct, tap } from 'rxjs/operators';
 import { distinctByField } from 'src/app/helpers/distinct';
-import { MultiDataSource } from '../table-filter-bar/table-filter-bar-dropdown-multi/multi-data-source';
+import { MultiDataSource } from 'src/app/components/ui/table-filter-bar-new/table-filter-bar-dropdown-multiple/multi-data-source';
 
 @Component({
   selector: 'app-search-dropdown-form',
