@@ -1,13 +1,3 @@
-<div class="filter-bar" [style.--count]="filterItems.length">
-    <div class="search-icon">
-        <mat-icon>search</mat-icon>
-    </div>
-    <div class="search-input">
-        <input placeholder="Suchen..." class="reset-input" (keyup)="onFilterTermChange($event)" (change)="onFilterTermChange($event)">
-    </div>
-    <div class="filter-item" *ngFor="let filterItem of filterItems; let i = index">
-        <app-table-filter-bar-dropdown-multi [dataSource]="filterItem.dataSource" [valueExpr]="filterItem.valueExpr"
-            [displayExpr]="filterItem.displayExpr" [label]="filterItem.dataName" [values]="filterItemsValues[i]"
-            (valuesChange)="onFilterItemValuesChange($event, i)"></app-table-filter-bar-dropdown-multi>
-    </div>
+<div class="filter-bar">
+    <ng-content></ng-content>
 </div>

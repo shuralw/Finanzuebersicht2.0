@@ -14,17 +14,14 @@ import { ConfirmationDialogService } from './confirmation-dialog/confirmation-di
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { SearchDropdownFormComponent } from './search-dropdown-form/search-dropdown-form.component';
 import { SearchDropdownComponent } from './search-dropdown/search-dropdown.component';
-import { TableFilterBarButtonComponent } from './table-filter-bar-new/table-filter-bar-button/table-filter-bar-button.component';
-import { TableFilterBarDropdownMultipleComponent } from './table-filter-bar-new/table-filter-bar-dropdown-multiple/table-filter-bar-dropdown-multiple.component';
-import { TableFilterBarIconComponent } from './table-filter-bar-new/table-filter-bar-icon/table-filter-bar-icon.component';
-import { TableFilterBarInputComponent } from './table-filter-bar-new/table-filter-bar-input/table-filter-bar-input.component';
-import { TableFilterBarNewComponent } from './table-filter-bar-new/table-filter-bar-new.component';
-import { TableFilterBarSpacerComponent } from './table-filter-bar-new/table-filter-bar-spacer/table-filter-bar-spacer.component';
-import { TableFilterBarTitleComponent } from './table-filter-bar-new/table-filter-bar-title/table-filter-bar-title.component';
-import { TableFilterBarDropdownMultiComponent } from './table-filter-bar/table-filter-bar-dropdown-multi/table-filter-bar-dropdown-multi.component';
-import { TableFilterBarDropdownComponent } from './table-filter-bar/table-filter-bar-dropdown/table-filter-bar-dropdown.component';
+import { TableFilterBarButtonComponent } from './table-filter-bar/table-filter-bar-button/table-filter-bar-button.component';
+import { TableFilterBarDropdownMultipleComponent } from './table-filter-bar/table-filter-bar-dropdown-multiple/table-filter-bar-dropdown-multiple.component';
+import { TableFilterBarIconComponent } from './table-filter-bar/table-filter-bar-icon/table-filter-bar-icon.component';
+import { TableFilterBarInputComponent } from './table-filter-bar/table-filter-bar-input/table-filter-bar-input.component';
+import { TableFilterBarSpacerComponent } from './table-filter-bar/table-filter-bar-spacer/table-filter-bar-spacer.component';
+import { TableFilterBarTitleComponent } from './table-filter-bar/table-filter-bar-title/table-filter-bar-title.component';
+import { RightDirective } from './table-filter-bar/table-filter-bar-right.directive';
 import { TableFilterBarComponent } from './table-filter-bar/table-filter-bar.component';
-import { RightDirective } from './table-filter-bar-new/table-filter-bar-right.directive';
 
 @NgModule({
     declarations: [
@@ -33,9 +30,6 @@ import { RightDirective } from './table-filter-bar-new/table-filter-bar-right.di
         SearchDropdownComponent,
         SearchDropdownFormComponent,
         TableFilterBarComponent,
-        TableFilterBarDropdownComponent,
-        TableFilterBarDropdownMultiComponent,
-        TableFilterBarNewComponent,
         TableFilterBarButtonComponent,
         TableFilterBarDropdownMultipleComponent,
         TableFilterBarIconComponent,
@@ -49,7 +43,6 @@ import { RightDirective } from './table-filter-bar-new/table-filter-bar-right.di
         SearchDropdownComponent,
         SearchDropdownFormComponent,
         TableFilterBarComponent,
-        TableFilterBarNewComponent,
         TableFilterBarButtonComponent,
         TableFilterBarDropdownMultipleComponent,
         TableFilterBarIconComponent,

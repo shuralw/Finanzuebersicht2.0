@@ -1,28 +1,16 @@
 .filter-bar {
-    height: 32px;
-    padding: 8px;
-
+    height: 2.2em;
+    padding: 0.3em;
     background-color: #e6e6e6;
+}
 
-    display: grid;
-    grid-template-columns: 32px auto repeat(max(var(--count), 1), min-content);
-    align-items: center;
-
-    .search-icon {
-        .mat-icon {
-            display: block;
-        }
+::ng-deep {
+    .filter-bar > * {
+        display: inline-block;
+        vertical-align: middle;
     }
 
-    .search-input {
-        input {
-            width: 100%;
-            font-size: 1.2em;
-            outline: none;
-        }
-    }
-
-    .filter-item {
-        padding: 0 8px;
+    app-table-filter-bar-input {
+        max-width: fit-content;
     }
 }
