@@ -2,7 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, Output, ViewC
 import { FormControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { Subject, Subscription } from 'rxjs';
-import { debounceTime, distinct, filter, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { TableFilterBarDropdownDataSource } from './table-filter-bar-dropdown-data-source';
 
 @Component({
@@ -120,12 +120,14 @@ export class TableFilterBarDropdownMultipleComponent<T> implements AfterViewInit
 
   ngAfterViewInit(): void {
     this.matSelect.openedChange
-      .pipe(distinct())
+      .pipe(distinctUntilChanged())
       .subscribe((isOpen) => {
+        console.log('openedChange', isOpen);
         if (isOpen) {
           this.scrollElement = this.matSelect.panel.nativeElement;
           this.scrollElement.addEventListener('scroll', event => {
             if (!this.dataSource.loading && event.target.scrollTop > event.target.scrollHeight - event.target.clientHeight - 48) {
+              console.log('should load');
               this.dataSource.loadNext();
             }
           });

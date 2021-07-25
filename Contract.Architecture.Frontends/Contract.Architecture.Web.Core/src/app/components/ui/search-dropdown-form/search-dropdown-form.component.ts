@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { Subject, Subscription } from 'rxjs';
-import { debounceTime, distinct, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { distinctByField } from 'src/app/helpers/distinct';
 import { SearchDropdownFormDataSource } from './search-dropdown-form-data-source';
 
@@ -126,7 +126,7 @@ export class SearchDropdownFormComponent<T> implements AfterViewInit, OnDestroy 
 
   ngAfterViewInit(): void {
     this.matSelect.openedChange
-      .pipe(distinct())
+      .pipe(distinctUntilChanged())
       .subscribe((isOpen) => {
         if (isOpen) {
           this.scrollElement = this.matSelect.panel.nativeElement;
