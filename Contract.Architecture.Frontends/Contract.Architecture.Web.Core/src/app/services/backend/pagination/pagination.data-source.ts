@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { IPaginationFilterItem, IPaginationOptions } from 'src/app/services/backend/i-pagionation-options';
+import { IPaginationFilterItem, IPaginationOptions } from 'src/app/services/backend/pagination/i-pagination-options';
 import { IPagedResult } from './i-paged-result';
 
 export class PaginationDataSource<T> implements DataSource<T> {
@@ -25,7 +25,6 @@ export class PaginationDataSource<T> implements DataSource<T> {
     public initialize(
         matPaginator: MatPaginator,
         matSort: MatSort): void {
-        this.loadData({ limit: 10, offset: 0 });
 
         merge(
             matSort.sortChange,
@@ -50,6 +49,8 @@ export class PaginationDataSource<T> implements DataSource<T> {
                     this.loadData(options);
                 })
             ).subscribe();
+
+        this.triggerUpdate();
     }
 
     triggerUpdate(): void {

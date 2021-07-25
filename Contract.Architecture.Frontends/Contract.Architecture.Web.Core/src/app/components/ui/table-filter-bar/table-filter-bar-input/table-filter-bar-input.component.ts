@@ -14,6 +14,4 @@ export class TableFilterBarInputComponent {
 
   constructor() { }
 
-  
-
 }

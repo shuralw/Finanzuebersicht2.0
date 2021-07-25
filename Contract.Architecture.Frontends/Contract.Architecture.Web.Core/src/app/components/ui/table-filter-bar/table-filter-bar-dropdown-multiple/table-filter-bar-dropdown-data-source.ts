@@ -1,5 +1,5 @@
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
-import { IPagedResult } from 'src/app/services/backend/i-paged-result';
+import { IPagedResult } from 'src/app/services/backend/pagination/i-paged-result';
 
 export class TableFilterBarDropdownDataSource<T> {
 
