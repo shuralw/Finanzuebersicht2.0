@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinct, filter, tap } from 'rxjs/operators';
-import { MultiDataSource } from './multi-data-source';
+import { TableFilterBarDropdownDataSource } from './table-filter-bar-dropdown-data-source';
 
 @Component({
   selector: 'app-table-filter-bar-dropdown-multiple',
@@ -14,8 +14,8 @@ export class TableFilterBarDropdownMultipleComponent<T> implements AfterViewInit
 
   selectedDataItems: T[] = [];
   data: T[] = [];
-  dataSource: MultiDataSource<T>;
-  @Input('dataSource') set _dataSource(dataSource: MultiDataSource<T>) {
+  dataSource: TableFilterBarDropdownDataSource<T>;
+  @Input('dataSource') set _dataSource(dataSource: TableFilterBarDropdownDataSource<T>) {
     if (dataSource) {
       this.dataSource = dataSource;
       this.updateDataSource();

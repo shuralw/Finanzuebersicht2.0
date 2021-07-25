@@ -4,7 +4,7 @@ import { MatSelect } from '@angular/material/select';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinct, tap } from 'rxjs/operators';
 import { distinctByField } from 'src/app/helpers/distinct';
-import { MultiDataSource } from 'src/app/components/ui/table-filter-bar-new/table-filter-bar-dropdown-multiple/multi-data-source';
+import { SearchDropdownFormDataSource } from './search-dropdown-form-data-source';
 
 @Component({
   selector: 'app-search-dropdown-form',
@@ -28,8 +28,8 @@ export class SearchDropdownFormComponent<T> implements AfterViewInit, OnDestroy 
   }
 
   data: T[];
-  dataSource: MultiDataSource<T>;
-  @Input('dataSource') set _dataSource(dataSource: MultiDataSource<T>) {
+  dataSource: SearchDropdownFormDataSource<T>;
+  @Input('dataSource') set _dataSource(dataSource: SearchDropdownFormDataSource<T>) {
     if (dataSource) {
       this.dataSource = dataSource;
       this.updateDataSource();

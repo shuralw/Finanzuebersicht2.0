@@ -1,7 +1,7 @@
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { IPagedResult } from 'src/app/services/backend/i-paged-result';
 
-export class MultiDataSource<T> {
+export class TableFilterBarDropdownDataSource<T> {
 
     private data: T[] = [];
     public dataSubject = new ReplaySubject<T[]>(1);
