@@ -1,0 +1,66 @@
+<div class="toolbar">
+    <h1 mat-dialog-title>
+        Kunde ändern
+    </h1>
+    <button mat-icon-button [mat-dialog-close]="false">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content>
+    <div class="loading" *ngIf="!kundeUpdateForm">
+        <mat-progress-spinner color="primary" mode="indeterminate" diameter="50"></mat-progress-spinner>
+    </div>
+    <div class="kunde-update-dialog" *ngIf="kundeUpdateForm">
+        <form [formGroup]="kundeUpdateForm">
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required="true" maxlength="256" placeholder="Name">
+                <mat-hint *ngIf="kundeUpdateForm.controls.name.value" [align]="'end'">
+                    {{kundeUpdateForm.controls.name.value.length}} / 256
+                </mat-hint>
+                <mat-error *ngIf="kundeUpdateForm.controls.name.touched && kundeUpdateForm.controls.name.invalid">
+                    <span *ngIf="kundeUpdateForm.controls.name.errors.required">
+                        Dieses Feld ist erfolderlich.
+                    </span>
+                    <span *ngIf="kundeUpdateForm.controls.name.errors.pattern">
+                        Dieses Feld ist ungültig.
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Balance</mat-label>
+                <input matInput formControlName="balance" type="number" required="true" placeholder="Balance">
+                <mat-error *ngIf="kundeUpdateForm.controls.balance.touched && kundeUpdateForm.controls.balance.invalid">
+                    <span *ngIf="kundeUpdateForm.controls.balance.errors.required">
+                        Dieses Feld ist erfolderlich.
+                    </span>
+                    <span *ngIf="kundeUpdateForm.controls.balance.errors.pattern">
+                        Dieses Feld ist ungültig.
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <app-search-dropdown [formGroupInstance]="kundeUpdateForm"
+                [formControlNameInstance]="'bankId'" label="Bank" idExpr="id" displayExpr="name"
+                required="true" [dataSource]="bankDataSource" [initialItem]="selectedBank">
+            </app-search-dropdown>
+
+        </form>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <div class="buttons">
+        <button mat-flat-button color="primary" (click)="onUpdateClicked()" [disabled]="!kundeUpdateForm"
+            [attr.aria-disabled]="!kundeUpdateForm">
+            <mat-icon class="mat-icon-button-fix">save</mat-icon>
+            Speichern
+        </button>
+
+        <button mat-flat-button [mat-dialog-close]="false">
+            Abbrechen
+        </button>
+    </div>
+</mat-dialog-actions>
