@@ -125,8 +125,8 @@ namespace Contract.Architecture.Backend.Core.Persistence
                     .HasMaxLength(256);
 
                 entity.HasOne(d => d.Bank)
-                    .WithMany(p => p.Kunden)
-                    .HasForeignKey(d => d.BankId)
+                    .WithOne(p => p.Kunde)
+                    .HasForeignKey<EfKunde>(d => d.BankId)
                     .HasConstraintName("FK_Kunden_BankId");
             });
 

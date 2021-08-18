@@ -57,7 +57,7 @@ namespace Contract.Architecture.Backend.Core.Persistence.Modules.Bankwesen.Banke
         public IDbBankDetail GetBankDetail(Guid bankId)
         {
             EfBank efBank = this.dbContext.Banken
-                .Include(efBank => efBank.Kunden)
+                .Include(efBank => efBank.Kunde)
                 .Where(efBank => efBank.Id == bankId)
                 .FirstOrDefault();
 

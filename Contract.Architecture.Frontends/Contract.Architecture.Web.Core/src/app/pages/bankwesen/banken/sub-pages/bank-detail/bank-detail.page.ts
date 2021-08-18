@@ -1,5 +1,3 @@
-import { IKunde } from 'src/app/model/kundenstamm/kunden/dtos/i-kunde';
-import { MatTableDataSource } from '@angular/material/table';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,12 +12,6 @@ import { BankUpdateDialog } from '../../dialogs/bank-update/bank-update.dialog';
   styleUrls: ['./bank-detail.page.scss']
 })
 export class BankDetailPage implements OnInit {
-
-  public kundenTableDataSource = new MatTableDataSource<IKunde>([]);
-  public kundenGridColumns: string[] = [
-    'name',
-    'detail',
-  ];
 
   bankId: string;
   bank: IBankDetail;
@@ -64,8 +56,6 @@ export class BankDetailPage implements OnInit {
   private async loadBank(): Promise<void> {
     this.bank = null;
     this.bank = await this.bankenCrudService.getBankDetail(this.bankId);
-
-    this.kundenTableDataSource.data = this.bank.kunden;
   }
 
 }

@@ -17,56 +17,36 @@
             Löschen
         </button>
     </div>
-    <mat-tab-group mat-align-tabs="start">
-        <mat-tab label="Stammdaten">
 
-            <p [attr.aria-label]="'Name: ' + bank.name">
-                <span style="font-size: 0.8em;" aria-hidden="true">Name:</span>
-                <br>
-                <span aria-hidden="true">{{bank.name}}</span>
-            </p>
+    <p [attr.aria-label]="'Name: ' + bank.name">
+        <span style="font-size: 0.8em;" aria-hidden="true">Name:</span>
+        <br>
+        <span aria-hidden="true">{{bank.name}}</span>
+    </p>
 
-            <p [attr.aria-label]="'Eröffnet Am: ' + bank.eroeffnetAm.toLocaleString()">
-                <span style="font-size: 0.8em;" aria-hidden="true">Eröffnet Am:</span>
-                <br>
-                <span aria-hidden="true">{{bank.eroeffnetAm | date:'dd. MMM. yyyy, HH:mm'}}</span>
-            </p>
+    <p [attr.aria-label]="'Eröffnet Am: ' + bank.eroeffnetAm.toLocaleString()">
+        <span style="font-size: 0.8em;" aria-hidden="true">Eröffnet Am:</span>
+        <br>
+        <span aria-hidden="true">{{bank.eroeffnetAm | date:'dd. MMM. yyyy, HH:mm'}}</span>
+    </p>
 
-            <p [attr.aria-label]="'Is Pleite: ' + (bank.isPleite) ? 'aktiv' : 'inaktiv' ">
-                <span style="font-size: 0.8em;" aria-hidden="true">Is Pleite:</span>
-                <br>
-                <mat-icon color="accent" *ngIf="bank.isPleite">
-                    check_box
-                </mat-icon>
-                <mat-icon style="color: gray" *ngIf="!bank.isPleite">
-                    check_box_outline_blank
-                </mat-icon>
-            </p>
-        </mat-tab>
-        <mat-tab label="Kunden">
-            <h2>Kunden</h2>
-            <div class="table-container">
-                <table mat-table [dataSource]="kundenTableDataSource">
+    <p [attr.aria-label]="'Is Pleite: ' + (bank.isPleite) ? 'aktiv' : 'inaktiv' ">
+        <span style="font-size: 0.8em;" aria-hidden="true">Is Pleite:</span>
+        <br>
+        <mat-icon color="accent" *ngIf="bank.isPleite">
+            check_box
+        </mat-icon>
+        <mat-icon style="color: gray" *ngIf="!bank.isPleite">
+            check_box_outline_blank
+        </mat-icon>
+    </p>
 
-                    <ng-container matColumnDef="name">
-                        <th mat-header-cell *matHeaderCellDef> Name </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.name}}
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="detail">
-                        <th mat-header-cell *matHeaderCellDef></th>
-                        <td mat-cell *matCellDef="let element" width="10%">
-                            <button mat-button role="link">Detail</button>
-                        </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="kundenGridColumns; sticky: true"></tr>
-                    <tr mat-row *matRowDef="let row; columns: kundenGridColumns;"
-                        [routerLink]="['/kundenstamm/kunden/detail', row.id]"></tr>
-                </table>
-            </div>
-        </mat-tab>
-    </mat-tab-group>
+    <p *ngIf="bank.kunde">
+        <span style="font-size: 0.8em;">Kunde:</span>
+        <br>
+        <a [routerLink]="['/kundenstamm/kunden/detail', bank.kunde.id]">
+            {{bank.kunde.name}}
+            <mat-icon style="font-size: 1em;">open_in_new</mat-icon>
+        </a>
+    </p>
 </div>

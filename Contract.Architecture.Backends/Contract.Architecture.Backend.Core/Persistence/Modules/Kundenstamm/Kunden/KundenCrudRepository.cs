@@ -1,7 +1,6 @@
 using Contract.Architecture.Backend.Core.Contract.Contexts;
 using Contract.Architecture.Backend.Core.Contract.Persistence.Modules.Kundenstamm.Kunden;
 using Contract.Architecture.Backend.Core.Contract.Persistence.Tools.Pagination;
-using Contract.Architecture.Backend.Core.Persistence.Tools.Pagination;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -43,6 +42,11 @@ namespace Contract.Architecture.Backend.Core.Persistence.Modules.Kundenstamm.Kun
         public bool DoesKundeExist(Guid kundeId)
         {
             return this.dbContext.Kunden.Any(efKunde => efKunde.Id == kundeId);
+        }
+
+        public bool IsBankIdInUsed(Guid bankId)
+        {
+            return this.dbContext.Kunden.Any(efKunde => efKunde.BankId == bankId);
         }
 
         public IDbKunde GetKunde(Guid kundeId)

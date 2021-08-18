@@ -25,6 +25,7 @@ export class BankenPage implements AfterViewInit {
     'name',
     'eroeffnetAm',
     'isPleite',
+    'kunde',
     'detail',
   ];
 

@@ -1,3 +1,4 @@
+using Contract.Architecture.Backend.Core.Contract.Persistence.Modules.Kundenstamm.Kunden;
 using System;
 
 namespace Contract.Architecture.Backend.Core.Contract.Persistence.Modules.Bankwesen.Banken
@@ -11,5 +12,7 @@ namespace Contract.Architecture.Backend.Core.Contract.Persistence.Modules.Bankwe
         DateTime EroeffnetAm { get; set; }
 
         bool IsPleite { get; set; }
+
+        IDbKunde Kunde { get; set; }
     }
 }

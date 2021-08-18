@@ -5,5 +5,5 @@ export interface ApiBankDetail {
     name: string;
     eroeffnetAm: Date;
     isPleite: boolean;
-    kunden: ApiKunde[];
+    kunde: ApiKunde;
 }

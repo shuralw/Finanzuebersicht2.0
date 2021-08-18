@@ -1,10 +1,10 @@
-import { IBankListItem } from 'src/app/model/bankwesen/banken/dtos/i-bank-list-item';
-import { BankenCrudService } from 'src/app/model/bankwesen/banken/banken-crud.service';
-import { DropdownPaginationDataSource } from 'src/app/components/ui/dropdown-data-source/dropdown-pagination-data-source';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { guidRegex, integerRegex } from 'src/app/helpers/regex.helper';
+import { DropdownPaginationDataSource } from 'src/app/components/ui/dropdown-data-source/dropdown-pagination-data-source';
+import { integerRegex } from 'src/app/helpers/regex.helper';
+import { BankenCrudService } from 'src/app/model/bankwesen/banken/banken-crud.service';
+import { IBank } from 'src/app/model/bankwesen/banken/dtos/i-bank';
 import { KundeUpdate } from 'src/app/model/kundenstamm/kunden/dtos/i-kunde-update';
 import { KundenCrudService } from 'src/app/model/kundenstamm/kunden/kunden-crud.service';
 
@@ -17,8 +17,8 @@ export class KundeUpdateDialog implements OnInit {
 
   kundeUpdateForm: FormGroup;
 
-  bankDataSource: DropdownPaginationDataSource<IBankListItem>;
-  selectedBank: IBankListItem;
+  bankDataSource: DropdownPaginationDataSource<IBank>;
+  selectedBank: IBank;
 
   constructor(
     private kundenCrudService: KundenCrudService,

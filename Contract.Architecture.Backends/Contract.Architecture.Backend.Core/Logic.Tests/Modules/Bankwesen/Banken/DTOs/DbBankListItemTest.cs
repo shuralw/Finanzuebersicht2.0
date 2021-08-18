@@ -1,7 +1,8 @@
 using Contract.Architecture.Backend.Core.Contract.Persistence.Modules.Bankwesen.Banken;
+using Contract.Architecture.Backend.Core.Contract.Persistence.Modules.Kundenstamm.Kunden;
 using Contract.Architecture.Backend.Core.Contract.Persistence.Tools.Pagination;
+using Contract.Architecture.Backend.Core.Logic.Tests.Modules.Kundenstamm.Kunden;
 using Contract.Architecture.Backend.Core.Logic.Tests.Tools.Pagination;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
@@ -17,6 +18,8 @@ namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banke
 
         public bool IsPleite { get; set; }
 
+        public IDbKunde Kunde { get; set; }
+
         public static IDbBankListItem Default()
         {
             return new DbBankListItemTest()
@@ -25,6 +28,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banke
                 Name = BankTestValues.NameDefault,
                 EroeffnetAm = BankTestValues.EroeffnetAmDefault,
                 IsPleite = BankTestValues.IsPleiteDefault,
+                Kunde = DbKundeTest.Default(),
             };
         }
 
@@ -36,6 +40,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banke
                 Name = BankTestValues.NameDefault2,
                 EroeffnetAm = BankTestValues.EroeffnetAmDefault2,
                 IsPleite = BankTestValues.IsPleiteDefault2,
+                Kunde = DbKundeTest.Default2(),
             };
         }
 

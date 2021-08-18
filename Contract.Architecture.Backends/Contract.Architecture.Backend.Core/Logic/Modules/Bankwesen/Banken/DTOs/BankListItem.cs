@@ -1,4 +1,5 @@
 using Contract.Architecture.Backend.Core.Contract.Logic.Modules.Bankwesen.Banken;
+using Contract.Architecture.Backend.Core.Contract.Logic.Modules.Kundenstamm.Kunden;
 using Contract.Architecture.Backend.Core.Contract.Persistence.Modules.Bankwesen.Banken;
 using System;
 
@@ -14,6 +15,8 @@ namespace Contract.Architecture.Backend.Core.Logic.Modules.Bankwesen.Banken
 
         public bool IsPleite { get; set; }
 
+        public IKunde Kunde { get; set; }
+
         internal static IBankListItem FromDbBankListItem(IDbBankListItem dbBankListItem)
         {
             return new BankListItem()
@@ -22,6 +25,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Modules.Bankwesen.Banken
                 Name = dbBankListItem.Name,
                 EroeffnetAm = dbBankListItem.EroeffnetAm,
                 IsPleite = dbBankListItem.IsPleite,
+                Kunde = Kundenstamm.Kunden.Kunde.FromDbKunde(dbBankListItem.Kunde),
             };
         }
     }

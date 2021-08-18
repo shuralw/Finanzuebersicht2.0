@@ -3,8 +3,6 @@ using Contract.Architecture.Backend.Core.Contract.Logic.Modules.Kundenstamm.Kund
 using Contract.Architecture.Backend.Core.Logic.Tests.Modules.Kundenstamm.Kunden;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banken
 {
@@ -18,7 +16,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banke
 
         public bool IsPleite { get; set; }
 
-        public IEnumerable<IKunde> Kunden { get; set; }
+        public IKunde Kunde { get; set; }
 
         public static IBankDetail Default()
         {
@@ -28,6 +26,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banke
                 Name = BankTestValues.NameDefault,
                 EroeffnetAm = BankTestValues.EroeffnetAmDefault,
                 IsPleite = BankTestValues.IsPleiteDefault,
+                Kunde = KundeTest.Default(),
             };
         }
 
@@ -39,6 +38,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banke
                 Name = BankTestValues.NameDefault2,
                 EroeffnetAm = BankTestValues.EroeffnetAmDefault2,
                 IsPleite = BankTestValues.IsPleiteDefault2,
+                Kunde = KundeTest.Default2(),
             };
         }
 
@@ -48,7 +48,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banke
             Assert.AreEqual(BankTestValues.NameDefault, bankDetail.Name);
             Assert.AreEqual(BankTestValues.EroeffnetAmDefault, bankDetail.EroeffnetAm);
             Assert.AreEqual(BankTestValues.IsPleiteDefault, bankDetail.IsPleite);
-            KundeTest.AssertDefault(bankDetail.Kunden.ToArray()[0]);
+            KundeTest.AssertDefault(bankDetail.Kunde);
         }
 
         public static void AssertDefault2(IBankDetail bankDetail)
@@ -57,7 +57,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banke
             Assert.AreEqual(BankTestValues.NameDefault2, bankDetail.Name);
             Assert.AreEqual(BankTestValues.EroeffnetAmDefault2, bankDetail.EroeffnetAm);
             Assert.AreEqual(BankTestValues.IsPleiteDefault2, bankDetail.IsPleite);
-            KundeTest.AssertDefault2(bankDetail.Kunden.ToArray()[0]);
+            KundeTest.AssertDefault2(bankDetail.Kunde);
         }
     }
 }

@@ -1,6 +1,5 @@
 using Contract.Architecture.Backend.Core.Contract.Logic.Modules.Kundenstamm.Kunden;
 using System;
-using System.Collections.Generic;
 
 namespace Contract.Architecture.Backend.Core.Contract.Logic.Modules.Bankwesen.Banken
 {
@@ -14,6 +13,6 @@ namespace Contract.Architecture.Backend.Core.Contract.Logic.Modules.Bankwesen.Ba
 
         bool IsPleite { get; set; }
 
-        IEnumerable<IKunde> Kunden { get; set; }
+        IKunde Kunde { get; set; }
     }
 }

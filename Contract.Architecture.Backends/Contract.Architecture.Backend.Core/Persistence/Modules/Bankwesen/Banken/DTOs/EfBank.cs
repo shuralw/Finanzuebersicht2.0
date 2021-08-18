@@ -8,7 +8,6 @@ namespace Contract.Architecture.Backend.Core.Persistence.Modules.Bankwesen.Banke
     {
         public EfBank()
         {
-            this.Kunden = new HashSet<EfKunde>();
         }
 
         public Guid Id { get; set; }
@@ -19,6 +18,6 @@ namespace Contract.Architecture.Backend.Core.Persistence.Modules.Bankwesen.Banke
 
         public bool IsPleite { get; set; }
 
-        public virtual ICollection<EfKunde> Kunden { get; set; }
+        public virtual EfKunde Kunde { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banke
 
         public bool IsPleite { get; set; }
 
-        public IEnumerable<IDbKunde> Kunden { get; set; }
+        public IDbKunde Kunde { get; set; }
 
         public static IDbBankDetail Default()
         {
@@ -28,7 +28,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banke
                 Name = BankTestValues.NameDefault,
                 EroeffnetAm = BankTestValues.EroeffnetAmDefault,
                 IsPleite = BankTestValues.IsPleiteDefault,
-                Kunden = new List<IDbKunde> { DbKundeTest.Default() },
+                Kunde = DbKundeTest.Default(),
             };
         }
 
@@ -40,14 +40,14 @@ namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banke
                 Name = BankTestValues.NameDefault2,
                 EroeffnetAm = BankTestValues.EroeffnetAmDefault2,
                 IsPleite = BankTestValues.IsPleiteDefault2,
-                Kunden = new List<IDbKunde> { DbKundeTest.Default2() },
+                Kunde = DbKundeTest.Default2(),
             };
         }
 
         public static void AssertDefault(IDbBankDetail dbBankDetail)
         {
             Assert.AreEqual(BankTestValues.IdDefault, dbBankDetail.Id);
-            DbKundeTest.AssertDefault(dbBankDetail.Kunden.ToArray()[0]);
+            DbKundeTest.AssertDefault(dbBankDetail.Kunde);
         }
 
         public static void AssertDefault2(IDbBankDetail dbBankDetail)
@@ -56,7 +56,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Tests.Modules.Bankwesen.Banke
             Assert.AreEqual(BankTestValues.NameDefault2, dbBankDetail.Name);
             Assert.AreEqual(BankTestValues.EroeffnetAmDefault2, dbBankDetail.EroeffnetAm);
             Assert.AreEqual(BankTestValues.IsPleiteDefault2, dbBankDetail.IsPleite);
-            DbKundeTest.AssertDefault2(dbBankDetail.Kunden.ToArray()[0]);
+            DbKundeTest.AssertDefault2(dbBankDetail.Kunde);
         }
     }
 }

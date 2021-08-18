@@ -9,6 +9,10 @@ export interface IKunde {
 
 export class Kunde {
     public static fromApiKunde(apiKunde: ApiKunde): IKunde {
+        if (apiKunde == null) {
+            return null;
+        }
+
         return {
             id: apiKunde.id,
             name: apiKunde.name,

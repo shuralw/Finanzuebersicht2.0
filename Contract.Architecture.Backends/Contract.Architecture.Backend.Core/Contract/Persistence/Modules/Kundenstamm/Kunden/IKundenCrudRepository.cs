@@ -12,6 +12,8 @@ namespace Contract.Architecture.Backend.Core.Contract.Persistence.Modules.Kunden
 
         bool DoesKundeExist(Guid kundeId);
 
+        bool IsBankIdInUsed(Guid bankId);
+
         IDbKunde GetKunde(Guid kundeId);
 
         IDbKundeDetail GetKundeDetail(Guid kundeId);

@@ -41,6 +41,12 @@ namespace Contract.Architecture.Backend.Core.Logic.Modules.Kundenstamm.Kunden
                 return LogicResult<Guid>.NotFound("Bank konnte nicht gefunden werden.");
             }
 
+            if (this.kundenCrudRepository.IsBankIdInUsed(kundeCreate.BankId))
+            {
+                this.logger.LogDebug("Bank bereits vergeben.");
+                return LogicResult<Guid>.Conflict("Bank bereits vergeben.");
+            }
+
             Guid newKundeId = this.guidGenerator.NewGuid();
             IDbKunde dbKundeToCreate = Kunde.CreateDbKunde(newKundeId, kundeCreate);
             this.kundenCrudRepository.CreateKunde(dbKundeToCreate);
@@ -105,6 +111,12 @@ namespace Contract.Architecture.Backend.Core.Logic.Modules.Kundenstamm.Kunden
             {
                 this.logger.LogDebug("Bank konnte nicht gefunden werden.");
                 return LogicResult.NotFound("Bank konnte nicht gefunden werden.");
+            }
+
+            if (this.kundenCrudRepository.IsBankIdInUsed(kundeUpdate.BankId))
+            {
+                this.logger.LogDebug("Bank bereits vergeben.");
+                return LogicResult.Conflict("Bank bereits vergeben.");
             }
 
             IDbKunde dbKundeToUpdate = this.kundenCrudRepository.GetKunde(kundeUpdate.Id);

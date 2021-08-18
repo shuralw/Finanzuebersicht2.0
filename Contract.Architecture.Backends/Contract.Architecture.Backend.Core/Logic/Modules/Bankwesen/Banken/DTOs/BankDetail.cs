@@ -1,10 +1,7 @@
 using Contract.Architecture.Backend.Core.Contract.Logic.Modules.Bankwesen.Banken;
 using Contract.Architecture.Backend.Core.Contract.Logic.Modules.Kundenstamm.Kunden;
 using Contract.Architecture.Backend.Core.Contract.Persistence.Modules.Bankwesen.Banken;
-using Contract.Architecture.Backend.Core.Logic.Modules.Kundenstamm.Kunden;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Contract.Architecture.Backend.Core.Logic.Modules.Bankwesen.Banken
 {
@@ -18,7 +15,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Modules.Bankwesen.Banken
 
         public bool IsPleite { get; set; }
 
-        public IEnumerable<IKunde> Kunden { get; set; }
+        public IKunde Kunde { get; set; }
 
         internal static IBankDetail FromDbBankDetail(IDbBankDetail dbBankDetail)
         {
@@ -28,7 +25,7 @@ namespace Contract.Architecture.Backend.Core.Logic.Modules.Bankwesen.Banken
                 Name = dbBankDetail.Name,
                 EroeffnetAm = dbBankDetail.EroeffnetAm,
                 IsPleite = dbBankDetail.IsPleite,
-                Kunden = dbBankDetail.Kunden.Select(dbKunde => Kunde.FromDbKunde(dbKunde)),
+                Kunde = Kundenstamm.Kunden.Kunde.FromDbKunde(dbBankDetail.Kunde),
             };
         }
     }

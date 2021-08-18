@@ -6,7 +6,7 @@ export interface IBankDetail {
     name: string;
     eroeffnetAm: Date;
     isPleite: boolean;
-    kunden: IKunde[];
+    kunde: IKunde;
 }
 
 export abstract class BankDetail {
@@ -16,9 +16,7 @@ export abstract class BankDetail {
             name: apiBankDetail.name,
             eroeffnetAm: apiBankDetail.eroeffnetAm,
             isPleite: apiBankDetail.isPleite,
-            kunden: apiBankDetail.kunden
-
-                .map(apiKunde => Kunde.fromApiKunde(apiKunde)),
+            kunde: Kunde.fromApiKunde(apiBankDetail.kunde),
         };
     }
 }

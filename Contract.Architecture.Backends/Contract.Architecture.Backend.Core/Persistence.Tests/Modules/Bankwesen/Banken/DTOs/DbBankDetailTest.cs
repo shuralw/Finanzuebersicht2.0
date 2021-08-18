@@ -3,8 +3,6 @@ using Contract.Architecture.Backend.Core.Contract.Persistence.Modules.Kundenstam
 using Contract.Architecture.Backend.Core.Persistence.Tests.Modules.Kundenstamm.Kunden;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Contract.Architecture.Backend.Core.Persistence.Tests.Modules.Bankwesen.Banken
 {
@@ -18,7 +16,7 @@ namespace Contract.Architecture.Backend.Core.Persistence.Tests.Modules.Bankwesen
 
         public bool IsPleite { get; set; }
 
-        public IEnumerable<IDbKunde> Kunden { get; set; }
+        public IDbKunde Kunde { get; set; }
 
         public static void AssertDbDefault(IDbBankDetail dbBankDetail)
         {
@@ -26,7 +24,7 @@ namespace Contract.Architecture.Backend.Core.Persistence.Tests.Modules.Bankwesen
             Assert.AreEqual(BankTestValues.NameDbDefault, dbBankDetail.Name);
             Assert.AreEqual(BankTestValues.EroeffnetAmDbDefault, dbBankDetail.EroeffnetAm);
             Assert.AreEqual(BankTestValues.IsPleiteDbDefault, dbBankDetail.IsPleite);
-            DbKundeTest.AssertDbDefault(dbBankDetail.Kunden.ToArray()[0]);
+            DbKundeTest.AssertDbDefault(dbBankDetail.Kunde);
         }
     }
 }

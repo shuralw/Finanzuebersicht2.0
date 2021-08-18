@@ -17,7 +17,7 @@ namespace Contract.Architecture.Backend.Core.Persistence.Modules.Bankwesen.Banke
 
         public bool IsPleite { get; set; }
 
-        public IEnumerable<IDbKunde> Kunden { get; set; }
+        public IDbKunde Kunde { get; set; }
 
         internal static IDbBankDetail FromEfBank(EfBank efBank)
         {
@@ -32,7 +32,7 @@ namespace Contract.Architecture.Backend.Core.Persistence.Modules.Bankwesen.Banke
                 Name = efBank.Name,
                 EroeffnetAm = efBank.EroeffnetAm,
                 IsPleite = efBank.IsPleite,
-                Kunden = efBank.Kunden.Select(efKunde => DbKunde.FromEfKunde(efKunde)),
+                Kunde = DbKunde.FromEfKunde(efBank.Kunde),
             };
         }
     }

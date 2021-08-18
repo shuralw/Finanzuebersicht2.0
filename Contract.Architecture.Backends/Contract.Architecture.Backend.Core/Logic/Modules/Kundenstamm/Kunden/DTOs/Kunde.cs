@@ -23,6 +23,11 @@ namespace Contract.Architecture.Backend.Core.Logic.Modules.Kundenstamm.Kunden
 
         internal static IKunde FromDbKunde(IDbKunde dbKunde)
         {
+            if (dbKunde == null)
+            {
+                return null;
+            }
+
             return new Kunde()
             {
                 Id = dbKunde.Id,
