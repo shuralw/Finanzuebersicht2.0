@@ -1,0 +1,63 @@
+<div class="toolbar">
+    <h1 mat-dialog-title>
+        Bank erstellen
+    </h1>
+    <button mat-icon-button mat-dialog-close>
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<mat-dialog-content>
+    <div class="bank-create-dialog" *ngIf="bankCreateForm">
+        <form [formGroup]="bankCreateForm">
+
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required="true" maxlength="256" placeholder="Name">
+                <mat-hint [align]="'end'">{{bankCreateForm.controls.name.value.length}} / 256</mat-hint>
+                <mat-error *ngIf="bankCreateForm.controls.name.touched && bankCreateForm.controls.name.invalid">
+                    <span *ngIf="bankCreateForm.controls.name.errors.required">
+                        Dieses Feld ist erfolderlich.
+                    </span>
+                    <span *ngIf="bankCreateForm.controls.name.errors.pattern">
+                        Dieses Feld ist ungültig.
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-label>Eröffnet Am</mat-label>
+                <input matInput formControlName="eroeffnetAm" required="true" placeholder="Eröffnet Am" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="bankCreateForm.controls.eroeffnetAm.touched && bankCreateForm.controls.eroeffnetAm.invalid">
+                    <span *ngIf="bankCreateForm.controls.eroeffnetAm.errors.required">
+                        Dieses Feld ist erfolderlich.
+                    </span>
+                    <span *ngIf="bankCreateForm.controls.eroeffnetAm.errors.pattern">
+                        Dieses Feld ist ungültig.
+                    </span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-checkbox formControlName="isPleite">
+                Is Pleite
+            </mat-checkbox>
+
+            <br>
+        </form>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <div class="buttons">
+        <button mat-flat-button color="primary" (click)="onCreateClicked()">
+            <mat-icon class="mat-icon-button-fix">add</mat-icon>
+            Erstellen
+        </button>
+
+        <button mat-flat-button mat-dialog-close>
+            Abbrechen
+        </button>
+    </div>
+</mat-dialog-actions>

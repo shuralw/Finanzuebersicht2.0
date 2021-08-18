@@ -1,0 +1,42 @@
+<div class="loading" *ngIf="!kunde">
+    <mat-progress-spinner color="primary" mode="indeterminate" diameter="50"></mat-progress-spinner>
+</div>
+
+<div class="kunde-detail-page" *ngIf="kunde">
+    <div class="toolbar">
+        <h1>Kunde: {{kunde.name}}</h1>
+        <button mat-flat-button [routerLink]="['/kundenstamm/kunden']">
+            Schließen
+        </button>
+        <button mat-flat-button color="primary" class="save-button" (click)="onUpdateClicked()">
+            <mat-icon class="mat-icon-button-fix">edit</mat-icon>
+            Ändern
+        </button>
+        <button mat-flat-button color="warn" class="save-button" (click)="onDeleteClicked()">
+            <mat-icon class="mat-icon-button-fix">delete</mat-icon>
+            Löschen
+        </button>
+    </div>
+
+    <p [attr.aria-label]="'Name: ' + kunde.name">
+        <span style="font-size: 0.8em;" aria-hidden="true">Name:</span>
+        <br>
+        <span aria-hidden="true">{{kunde.name}}</span>
+    </p>
+
+    <p [attr.aria-label]="'Balance: ' + kunde.balance">
+        <span style="font-size: 0.8em;" aria-hidden="true">Balance:</span>
+        <br>
+        <span aria-hidden="true">{{kunde.balance}}</span>
+    </p>
+
+    <p>
+        <span style="font-size: 0.8em;">Bank:</span>
+        <br>
+        <a [routerLink]="['/bankwesen/banken/detail', kunde.bank.id]">
+            {{kunde.bank.name}}
+            <mat-icon style="font-size: 1em;">open_in_new</mat-icon>
+        </a>
+    </p>
+
+</div>
