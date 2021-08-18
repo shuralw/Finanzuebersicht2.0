@@ -1,13 +1,23 @@
-<mat-form-field appearance="outline">
+<mat-form-field appearance="outline" [formGroup]="formGroupInstance" [floatLabel]="'always'">
     <mat-label>{{label}}</mat-label>
-    <mat-select disableOptionCentering panelClass="searchDropdownPanel" [value]="selectedDataSourceItem"
-        (valueChange)="onSelectedDataSourceItemChange($event)">
+    <mat-select [required]="required" [placeholder]="label" disableOptionCentering panelClass="searchDropdownPanel"
+        [formControlName]="formControlNameInstance">
         <mat-option>
-            <ngx-mat-select-search [formControl]="filterCtrl"></ngx-mat-select-search>
+            <ngx-mat-select-search [formControl]="filterCtrl" [searching]="dataSource.loading$ | async">
+            </ngx-mat-select-search>
         </mat-option>
 
-        <mat-option *ngFor="let dataSourceItem of filteredDataSource | async" [value]="dataSourceItem">
-            {{getDisplayname(dataSourceItem)}}
+        <mat-option *ngFor="let item of data" [value]="getId(item)">
+            {{getDisplayname(item)}}
         </mat-option>
     </mat-select>
+    <mat-error
+        *ngIf="formGroupInstance.controls[formControlNameInstance].touched && formGroupInstance.controls[formControlNameInstance].invalid">
+        <span *ngIf="formGroupInstance.controls[formControlNameInstance].errors.required">
+            Dieses Feld ist erfolderlich.
+        </span>
+        <span *ngIf="formGroupInstance.controls[formControlNameInstance].errors.alreadyExists">
+            Dieser Wert existiert bereits.
+        </span>
+    </mat-error>
 </mat-form-field>

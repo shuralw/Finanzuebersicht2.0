@@ -1,12 +1,11 @@
-﻿using Contract.Architecture.Backend.Core.API.Contexts.Pagination;
-using Contract.Architecture.Backend.Core.Contract.Contexts;
+﻿using Contract.Architecture.Backend.Core.Contract.Contexts;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Contract.Architecture.Backend.Core.API.Contexts
+namespace Contract.Architecture.Backend.Core.API.Contexts.Pagination
 {
     public class PaginationContext : IPaginationContext
     {

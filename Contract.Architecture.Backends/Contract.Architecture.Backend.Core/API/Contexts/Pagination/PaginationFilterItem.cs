@@ -1,6 +1,6 @@
 ﻿using Contract.Architecture.Backend.Core.Contract.Contexts;
 
-namespace Contract.Architecture.Backend.Core.API.Contexts
+namespace Contract.Architecture.Backend.Core.API.Contexts.Pagination
 {
     internal class PaginationFilterItem : IPaginationFilterItem
     {

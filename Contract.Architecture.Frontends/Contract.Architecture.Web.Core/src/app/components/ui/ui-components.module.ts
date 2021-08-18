@@ -12,15 +12,13 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ConfirmationDialog } from './confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogService } from './confirmation-dialog/confirmation-dialog.service';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
-import { SearchDropdownFormComponent } from './search-dropdown-form/search-dropdown-form.component';
 import { SearchDropdownComponent } from './search-dropdown/search-dropdown.component';
 import { TableFilterBarButtonComponent } from './table-filter-bar/table-filter-bar-button/table-filter-bar-button.component';
-import { TableFilterBarDropdownMultipleComponent } from './table-filter-bar/table-filter-bar-dropdown-multiple/table-filter-bar-dropdown-multiple.component';
+import { TableFilterBarDropdownComponent } from './table-filter-bar/table-filter-bar-dropdown/table-filter-bar-dropdown.component';
 import { TableFilterBarIconComponent } from './table-filter-bar/table-filter-bar-icon/table-filter-bar-icon.component';
 import { TableFilterBarInputComponent } from './table-filter-bar/table-filter-bar-input/table-filter-bar-input.component';
 import { TableFilterBarSpacerComponent } from './table-filter-bar/table-filter-bar-spacer/table-filter-bar-spacer.component';
 import { TableFilterBarTitleComponent } from './table-filter-bar/table-filter-bar-title/table-filter-bar-title.component';
-import { RightDirective } from './table-filter-bar/table-filter-bar-right.directive';
 import { TableFilterBarComponent } from './table-filter-bar/table-filter-bar.component';
 
 @NgModule({
@@ -28,28 +26,28 @@ import { TableFilterBarComponent } from './table-filter-bar/table-filter-bar.com
         ConfirmationDialog,
         LoadingSpinnerComponent,
         SearchDropdownComponent,
-        SearchDropdownFormComponent,
         TableFilterBarComponent,
         TableFilterBarButtonComponent,
-        TableFilterBarDropdownMultipleComponent,
+        TableFilterBarDropdownComponent,
         TableFilterBarIconComponent,
         TableFilterBarInputComponent,
         TableFilterBarSpacerComponent,
         TableFilterBarTitleComponent,
-        RightDirective,
+    ],
+    entryComponents: [
+        ConfirmationDialog,
     ],
     exports: [
+        ConfirmationDialog,
         LoadingSpinnerComponent,
         SearchDropdownComponent,
-        SearchDropdownFormComponent,
         TableFilterBarComponent,
         TableFilterBarButtonComponent,
-        TableFilterBarDropdownMultipleComponent,
+        TableFilterBarDropdownComponent,
         TableFilterBarIconComponent,
         TableFilterBarInputComponent,
         TableFilterBarSpacerComponent,
         TableFilterBarTitleComponent,
-        RightDirective,
     ],
     imports: [
         CommonModule,
@@ -65,7 +63,7 @@ import { TableFilterBarComponent } from './table-filter-bar/table-filter-bar.com
         NgxMatSelectSearchModule,
     ],
     providers: [
-        ConfirmationDialogService,
+        ConfirmationDialogService
     ]
 })
 export class UiComponentsModule { }

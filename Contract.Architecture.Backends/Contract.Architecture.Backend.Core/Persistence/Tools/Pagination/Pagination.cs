@@ -1,10 +1,12 @@
 ﻿using Contract.Architecture.Backend.Core.Contract.Contexts;
+using Contract.Architecture.Backend.Core.Contract.Contexts.Pagination;
 using Contract.Architecture.Backend.Core.Contract.Persistence.Tools.Pagination;
+using Contract.Architecture.Backend.Core.Persistence.Tools.Pagination;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace Contract.Architecture.Backend.Core.Persistence.Tools.Pagination
+namespace Contract.Architecture.Backend.Core.Persistence
 {
     public static class Pagination
     {
@@ -48,24 +50,29 @@ namespace Contract.Architecture.Backend.Core.Persistence.Tools.Pagination
                     switch (Type.GetTypeCode(propertyType))
                     {
                         case TypeCode.Boolean:
-                            bool propertyValueBool = bool.Parse(propertyValueSplit[0]);
-                            query = query.Where(p => EF.Property<bool>(p, propertyName) == propertyValueBool);
+                            var propertyValueBool = propertyValueSplit.Select(propertyValue => bool.Parse(propertyValue));
+                            query = query.Where(p => propertyValueBool.Contains(EF.Property<bool>(p, propertyName)));
                             break;
+
                         case TypeCode.DateTime:
                             var propertyValueDateTimes = propertyValueSplit.Select(propertyValue => DateTime.Parse(propertyValue));
                             query = query.Where(p => propertyValueDateTimes.Contains(EF.Property<DateTime>(p, propertyName)));
                             break;
+
                         case TypeCode.Int32:
                             var propertyValueInts = propertyValueSplit.Select(propertyValue => int.Parse(propertyValue));
                             query = query.Where(p => propertyValueInts.Contains(EF.Property<int>(p, propertyName)));
                             break;
+
                         case TypeCode.Double:
                             var propertyValueDoubles = propertyValueSplit.Select(propertyValue => double.Parse(propertyValue));
                             query = query.Where(p => propertyValueDoubles.Contains(EF.Property<double>(p, propertyName)));
                             break;
+
                         case TypeCode.String:
                             query = query.LikeAny(propertyName, propertyValueSplit);
                             break;
+
                         case TypeCode.Object:
                             if (propertyType == typeof(Guid))
                             {

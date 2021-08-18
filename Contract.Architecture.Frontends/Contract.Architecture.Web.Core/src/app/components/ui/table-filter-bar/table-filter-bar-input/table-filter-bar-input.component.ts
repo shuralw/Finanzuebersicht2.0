@@ -9,7 +9,7 @@ export class TableFilterBarInputComponent {
 
   @Input() placeholder: string;
 
-  @Input() value: string;
+  @Input() value = '';
   @Output() valueChange = new EventEmitter<string>();
 
   constructor() { }

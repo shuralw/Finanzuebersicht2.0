@@ -1,34 +1,44 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ReplaySubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { AfterViewInit, Component, Input, OnDestroy, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
+import { Subject, Subscription } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { distinctByField } from 'src/app/helpers/distinct.helper';
+import { IDropdownDataSource } from '../dropdown-data-source/i-dropdown-data-source';
 
 @Component({
   selector: 'app-search-dropdown',
   templateUrl: './search-dropdown.component.html',
   styleUrls: ['./search-dropdown.component.scss']
 })
-export class SearchDropdownComponent<T> implements OnInit, OnDestroy {
+export class SearchDropdownComponent<T> implements AfterViewInit, OnDestroy {
 
-  dataSource: T[];
-  @Input('dataSource') set _dataSource(dataSource: T[]) {
+  @Input() formGroupInstance: FormGroup;
+  @Input() formControlNameInstance: string;
+
+  @Input() label: string;
+  @Input() required = false;
+
+  selectedItem: T;
+  @Input('initialItem') set _initialItem(initialItem: T) {
+    if (initialItem) {
+      this.selectedItem = initialItem;
+      this.updateDataSource();
+    }
+  }
+
+  data: T[];
+  dataSource: IDropdownDataSource<T>;
+  @Input('dataSource') set _dataSource(dataSource: IDropdownDataSource<T>) {
     if (dataSource) {
       this.dataSource = dataSource;
       this.updateDataSource();
     }
   }
-  selectedDataSourceItem: T;
 
-  value: any;
-  @Input('value') set _value(value: any) {
-    this.value = value;
-    this.updateDataSource();
-  }
-  @Output() valueChange = new EventEmitter<any>();
-
-  valueExpr: any;
-  @Input('valueExpr') set _valueExpr(valueExpr: any) {
-    this.valueExpr = valueExpr;
+  idExpr: any;
+  @Input('idExpr') set _idExpr(idExpr: any) {
+    this.idExpr = idExpr;
     this.updateDataSource();
   }
 
@@ -38,17 +48,14 @@ export class SearchDropdownComponent<T> implements OnInit, OnDestroy {
     this.updateDataSource();
   }
 
-  @Input() label: string;
-
-  // ----------- TAKEN FROM EXAMPLE -----------
-
-  /** control for the MatSelect filter keyword */
   public filterCtrl: FormControl = new FormControl();
 
-  /** list of dataSource filtered by search keyword */
-  public filteredDataSource: ReplaySubject<T[]> = new ReplaySubject<T[]>(1);
+  @ViewChild(MatSelect) matSelect: MatSelect;
+  scrollElement: any;
 
-  /** Subject that emits when the component has been destroyed. */
+  dataSubscription: Subscription;
+  valueChangeSubscription: Subscription;
+  filterSubscription: Subscription;
   protected onDestroy = new Subject<void>();
 
   constructor() { }
@@ -61,35 +68,74 @@ export class SearchDropdownComponent<T> implements OnInit, OnDestroy {
     }
   }
 
+  getId(value: T): string {
+    if (this.idExpr) {
+      return value[this.idExpr];
+    } else {
+      return JSON.stringify(value);
+    }
+  }
+
   updateDataSource(): void {
-    if (this.dataSource && this.value && this.valueExpr) {
-      this.selectedDataSourceItem = this.dataSource.find(item => item[this.valueExpr] === this.value);
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+      this.dataSubscription = null;
     }
 
-    if (this.dataSource && this.displayExpr) {
-      this.dataSource = this.dataSource.sort((a, b) => a[this.displayExpr].localeCompare(b[this.displayExpr]));
+    if (this.valueChangeSubscription) {
+      this.valueChangeSubscription.unsubscribe();
+      this.valueChangeSubscription = null;
     }
 
-    this.filterDataSource();
+    if (this.filterSubscription) {
+      this.filterSubscription.unsubscribe();
+      this.filterSubscription = null;
+    }
+
+    if (this.dataSource && this.formGroupInstance && this.formControlNameInstance) {
+      this.dataSubscription = this.dataSource.data$.subscribe((data: T[]) => {
+        const scrollTop = this.scrollElement?.scrollTop;
+        if (this.selectedItem) {
+          this.data = distinctByField([this.selectedItem].concat(data), this.idExpr);
+        } else {
+          this.data = distinctByField(data, this.idExpr);
+        }
+
+        if (scrollTop) {
+          setTimeout(() => {
+            setTimeout(() => {
+              this.scrollElement.scrollTop = scrollTop;
+            }, 0);
+          }, 0);
+        }
+      });
+
+      this.valueChangeSubscription = this.formGroupInstance.controls[this.formControlNameInstance].valueChanges
+        .subscribe((value) => {
+          this.selectedItem = this.data.find(dataItem => dataItem[this.idExpr] === value);
+        });
+    }
   }
 
-  onSelectedDataSourceItemChange(newSelectedDataSource: T): void {
-    this.selectedDataSourceItem = newSelectedDataSource;
+  ngAfterViewInit(): void {
+    this.matSelect.openedChange
+      .pipe(distinctUntilChanged())
+      .subscribe((isOpen) => {
+        if (isOpen) {
+          this.dataSource.filter('');
+          this.filterSubscription = this.filterCtrl.valueChanges
+            .subscribe(value => this.dataSource.filter(value));
 
-    if (this.valueExpr) {
-      this.value = this.selectedDataSourceItem[this.valueExpr];
-      this.valueChange.emit(this.value);
-    }
-  }
-
-  // ----------- TAKEN FROM EXAMPLE -----------
-
-  ngOnInit(): void {
-    // listen for search field value changes
-    this.filterCtrl.valueChanges
-      .pipe(takeUntil(this.onDestroy))
-      .subscribe(() => {
-        this.filterDataSource();
+          this.scrollElement = this.matSelect.panel.nativeElement;
+          this.scrollElement.addEventListener('scroll', event => {
+            if (event.target.scrollTop > event.target.scrollHeight - event.target.clientHeight - 48) {
+              this.dataSource.loadNext();
+            }
+          });
+        } else if (this.filterSubscription) {
+          this.filterSubscription.unsubscribe();
+          this.filterSubscription = null;
+        }
       });
   }
 
@@ -98,23 +144,4 @@ export class SearchDropdownComponent<T> implements OnInit, OnDestroy {
     this.onDestroy.complete();
   }
 
-  protected filterDataSource(): void {
-    if (!this.dataSource || !this.displayExpr) {
-      return;
-    }
-
-    // get the search keyword
-    let search = this.filterCtrl.value;
-    if (!search) {
-      this.filteredDataSource.next(this.dataSource.slice());
-      return;
-    } else {
-      search = search.toLowerCase();
-    }
-
-    // filter the dataSource
-    this.filteredDataSource.next(
-      this.dataSource.filter(item => item[this.displayExpr].toLowerCase().indexOf(search) > -1)
-    );
-  }
 }

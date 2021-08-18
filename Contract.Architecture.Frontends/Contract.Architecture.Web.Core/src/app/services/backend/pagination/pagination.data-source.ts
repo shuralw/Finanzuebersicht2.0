@@ -2,9 +2,9 @@ import { DataSource } from '@angular/cdk/collections';
 import { EventEmitter } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { BehaviorSubject, merge, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { IPaginationFilterItem, IPaginationOptions } from 'src/app/services/backend/pagination/i-pagination-options';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { mergeAll, tap } from 'rxjs/operators';
+import { IPaginationFilterItem, IPaginationOptions } from './i-pagination-options';
 import { IPagedResult } from './i-paged-result';
 
 export class PaginationDataSource<T> implements DataSource<T> {
@@ -26,18 +26,18 @@ export class PaginationDataSource<T> implements DataSource<T> {
         matPaginator: MatPaginator,
         matSort: MatSort): void {
 
-        merge(
-            matSort.sortChange,
-            this.updateTriggered.asObservable())
+        of(matSort.sortChange, this.updateTriggered.asObservable())
             .pipe(
+                mergeAll(),
                 tap(() => matPaginator.pageIndex = 0),
             ).subscribe();
 
-        merge(
+        of(
             matSort.sortChange,
             matPaginator.page,
             this.updateTriggered.asObservable())
             .pipe(
+                mergeAll(),
                 tap(() => {
                     const options: IPaginationOptions = {
                         limit: matPaginator.pageSize,

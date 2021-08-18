@@ -1,5 +1,4 @@
-﻿using Contract.Architecture.Backend.Core.Contract.Contexts;
-using Contract.Architecture.Backend.Core.Contract.Persistence.Tools.Pagination;
+﻿using Contract.Architecture.Backend.Core.Contract.Persistence.Tools.Pagination;
 using System.Collections.Generic;
 
 namespace Contract.Architecture.Backend.Core.Logic.Tests.Tools.Pagination

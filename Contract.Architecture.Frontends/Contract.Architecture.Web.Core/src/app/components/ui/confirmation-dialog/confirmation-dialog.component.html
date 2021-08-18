@@ -4,10 +4,10 @@
     </p>
 </mat-dialog-content>
 <mat-dialog-actions [attr.align]="'center'">
-    <button mat-raised-button color="primary" [mat-dialog-close]="true">
+    <button mat-raised-button color="primary" (click)="onConfirmClick()">
         {{confirmButtonText}}
     </button>
-    <button mat-button [mat-dialog-close]="false">
+    <button mat-button mat-dialog-close>
         {{cancelButtonText}}
     </button>
 </mat-dialog-actions>
