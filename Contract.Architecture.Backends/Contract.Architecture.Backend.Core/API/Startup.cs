@@ -1,9 +1,11 @@
 using Contract.Architecture.Backend.Core.API.APIConfiguration;
 using Contract.Architecture.Backend.Core.API.Contexts;
+using Contract.Architecture.Backend.Core.API.Contexts.Pagination;
 using Contract.Architecture.Backend.Core.API.Middlewares;
 using Contract.Architecture.Backend.Core.API.Security.Authentication;
 using Contract.Architecture.Backend.Core.Contract;
 using Contract.Architecture.Backend.Core.Contract.Contexts;
+using Contract.Architecture.Backend.Core.Contract.Contexts.Pagination;
 using Contract.Architecture.Backend.Core.Contract.Logic.Modules.SessionManagement.Sessions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

@@ -18,7 +18,7 @@
                 "API"
             ],
             "options": {
-                "cwd": "Contract.Architecture.Backend.Core\\Contract.Architecture.Backend.Core"
+                "cwd": "Contract.Architecture.Backends\\Contract.Architecture.Backend.Core"
             },
             "problemMatcher": "$msCompile"
         },

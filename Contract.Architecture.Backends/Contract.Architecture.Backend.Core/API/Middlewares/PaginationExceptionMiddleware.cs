@@ -1,4 +1,4 @@
-﻿using Contract.Architecture.Backend.Core.Contract.Contexts;
+﻿using Contract.Architecture.Backend.Core.Contract.Contexts.Pagination;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
 using System.Threading.Tasks;
