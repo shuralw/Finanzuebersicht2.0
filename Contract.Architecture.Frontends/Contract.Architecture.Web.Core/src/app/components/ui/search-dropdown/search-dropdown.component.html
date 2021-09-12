@@ -14,7 +14,7 @@
     <mat-error
         *ngIf="formGroupInstance.controls[formControlNameInstance].touched && formGroupInstance.controls[formControlNameInstance].invalid">
         <span *ngIf="formGroupInstance.controls[formControlNameInstance].errors.required">
-            Dieses Feld ist erfolderlich.
+            Dieses Feld ist erforderlich.
         </span>
         <span *ngIf="formGroupInstance.controls[formControlNameInstance].errors.alreadyExists">
             Dieser Wert existiert bereits.
