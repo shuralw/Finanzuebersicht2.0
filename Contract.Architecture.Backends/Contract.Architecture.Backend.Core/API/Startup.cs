@@ -52,8 +52,8 @@ namespace Contract.Architecture.Backend.Core.API
 
             SwaggerSetup.Configure(app);
 
-            app.UseRouting();
             app.UseCors();
+            app.UseRouting();
             app.UseMiddleware<ExceptionLoggingMiddleware>();
             app.UseMiddleware<PaginationExceptionMiddleware>();
             app.UseAuthentication();
