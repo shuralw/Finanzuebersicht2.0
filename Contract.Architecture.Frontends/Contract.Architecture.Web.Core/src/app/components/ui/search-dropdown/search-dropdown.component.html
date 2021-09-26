@@ -10,7 +10,7 @@
         <mat-option *ngIf="!required && formGroupInstance.controls[formControlNameInstance].value"
             (click)="formGroupInstance.controls[formControlNameInstance].value == null">
             <mat-icon>close</mat-icon>
-            Auswahl entfernen
+            Auswahl zurücksetzen
         </mat-option>
 
         <mat-option *ngFor="let item of data" [value]="getId(item)">
