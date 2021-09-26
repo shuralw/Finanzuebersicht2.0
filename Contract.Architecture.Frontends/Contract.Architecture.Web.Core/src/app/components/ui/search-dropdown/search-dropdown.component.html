@@ -7,6 +7,12 @@
             </ngx-mat-select-search>
         </mat-option>
 
+        <mat-option *ngIf="!required && formGroupInstance.controls[formControlNameInstance].value"
+            (click)="formGroupInstance.controls[formControlNameInstance].value == null">
+            <mat-icon>close</mat-icon>
+            Auswahl entfernen
+        </mat-option>
+
         <mat-option *ngFor="let item of data" [value]="getId(item)">
             {{getDisplayname(item)}}
         </mat-option>
