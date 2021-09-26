@@ -47,6 +47,11 @@ namespace Contract.Architecture.Backend.Core.Persistence
                 if (filterElement.FilterType == FilterType.Equal)
                 {
                     Type propertyType = typeof(Tin).GetProperty(propertyName).PropertyType;
+                    if (propertyType.IsGenericType)
+                    {
+                        propertyType = propertyType.GetGenericArguments().First();
+                    }
+
                     switch (Type.GetTypeCode(propertyType))
                     {
                         case TypeCode.Boolean:
