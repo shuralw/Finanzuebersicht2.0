@@ -2,7 +2,7 @@
 
 namespace Contract.Architecture.Backend.Core.API.Contexts.Pagination
 {
-    internal class PaginationSort : IPaginationSortItem
+    internal class PaginationSortItem : IPaginationSortItem
     {
         public string PropertyName { get; set; }
 

@@ -8,8 +8,12 @@ namespace Contract.Architecture.Backend.Core.Contract.Contexts
 
         int Offset { get; }
 
-        IEnumerable<IPaginationFilterItem> Filter { get; }
+        IDictionary<string, IPaginationFilterItem> Filter { get; }
 
-        IEnumerable<IPaginationSortItem> Sort { get; }
+        IDictionary<string, IPaginationFilterItem> CustomFilter { get; }
+
+        IDictionary<string, IPaginationSortItem> Sort { get; }
+
+        IDictionary<string, IPaginationSortItem> CustomSort { get; }
     }
 }

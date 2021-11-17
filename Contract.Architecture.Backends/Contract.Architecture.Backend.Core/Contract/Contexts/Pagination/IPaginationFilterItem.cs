@@ -6,6 +6,8 @@
 
         string PropertyValue { get; set; }
 
+        string PropertyQuery { get; set; }
+
         FilterType FilterType { get; set; }
     }
 }

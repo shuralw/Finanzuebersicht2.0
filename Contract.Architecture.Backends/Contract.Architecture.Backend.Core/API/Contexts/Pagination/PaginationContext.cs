@@ -72,73 +72,98 @@ namespace Contract.Architecture.Backend.Core.API.Contexts.Pagination
             }
         }
 
-        public IEnumerable<IPaginationFilterItem> Filter
+        public IDictionary<string, IPaginationFilterItem> Filter
         {
             get
             {
-                PaginationAttribute paginationAttribut =
-                    this.httpContextAccessor.HttpContext
-                        .GetEndpoint().Metadata
-                        .GetMetadata<PaginationAttribute>();
+                IEnumerable<PaginationFilterField> paginationFilterFields = this.GetPaginationFilterFields();
+
+                if (paginationFilterFields == null || !paginationFilterFields.Any())
+                {
+                    return new Dictionary<string, IPaginationFilterItem>();
+                }
 
                 return this.GetFilterItemsFromQuery()
-                    .Where(paginationFilterItem => paginationAttribut.FilterFields
-                        .Select(filterField => filterField.ToLower())
-                        .Contains(paginationFilterItem.PropertyName.ToLower()));
-            }
-        }
-
-        public IEnumerable<IPaginationFilterItem> CustomFilter
-        {
-            get
-            {
-                PaginationAttribute paginationAttribut =
-                    this.httpContextAccessor.HttpContext
-                        .GetEndpoint().Metadata
-                        .GetMetadata<PaginationAttribute>();
-
-                return this.GetFilterItemsFromQuery()
-                    .Where(paginationFilterItem => paginationAttribut.CustomFilterFields
-                        .Select(customFilterFields => customFilterFields.ToLower())
-                        .Contains(paginationFilterItem.PropertyName.ToLower()));
-            }
-        }
-
-        public IEnumerable<IPaginationSortItem> Sort
-        {
-            get
-            {
-                PaginationAttribute paginationAttribut =
-                    this.httpContextAccessor.HttpContext
-                        .GetEndpoint().Metadata
-                        .GetMetadata<PaginationAttribute>();
-
-                return this.httpContextAccessor.HttpContext.Request.Query
-                    .Where((keyValue) =>
-                    {
-                        bool isEqualFilter = keyValue.Key == "sort";
-                        bool isAdvancedEqualFilter = Regex.IsMatch(keyValue.Key, @"^sort\.(asc|desc)$", RegexOptions.IgnoreCase);
-                        return isEqualFilter || isAdvancedEqualFilter;
-                    })
-                    .Select(keyValue =>
-                    {
-                        string[] sortSplit = keyValue.Key.Split(".");
-
-                        PaginationSort paginationSort = new PaginationSort()
+                    .Where(paginationFilterItem => paginationFilterFields
+                        .Select(filterField => filterField.PropertyName.ToLower())
+                        .Contains(paginationFilterItem.Value.PropertyName.ToLower()))
+                    .ToDictionary(
+                        x => x.Key,
+                        x =>
                         {
-                            OrderBy = this.ExtractOrderBy(sortSplit),
-                            PropertyName = keyValue.Value,
-                        };
+                            x.Value.PropertyQuery = paginationFilterFields
+                                .Single(field => field.PropertyName.ToLower() == x.Value.PropertyName.ToLower())
+                                .PropertyQuery;
+                            return x.Value;
+                        },
+                        StringComparer.InvariantCultureIgnoreCase);
+            }
+        }
 
-                        return paginationSort;
-                    })
+        public IDictionary<string, IPaginationFilterItem> CustomFilter
+        {
+            get
+            {
+                IEnumerable<string> paginationFilterFields = this.GetPaginationCustomFilterFields();
+
+                if (paginationFilterFields == null || !paginationFilterFields.Any())
+                {
+                    return new Dictionary<string, IPaginationFilterItem>();
+                }
+
+                return this.GetFilterItemsFromQuery()
+                    .Where(paginationFilterItem => paginationFilterFields
+                        .Select(filterField => filterField.ToLower())
+                        .Contains(paginationFilterItem.Value.PropertyName.ToLower()))
+                    .ToDictionary(x => x.Key, x => x.Value, StringComparer.InvariantCultureIgnoreCase);
+            }
+        }
+
+        public IDictionary<string, IPaginationSortItem> Sort
+        {
+            get
+            {
+                PaginationAttribute paginationAttribut =
+                    this.httpContextAccessor.HttpContext
+                        .GetEndpoint().Metadata
+                        .GetMetadata<PaginationAttribute>();
+
+                if (paginationAttribut.SortFields == null || paginationAttribut.SortFields.Length == 0)
+                {
+                    return new Dictionary<string, IPaginationSortItem>();
+                }
+
+                return this.GetSortItemsFromQuery()
                     .Where(paginationSortItem => paginationAttribut.SortFields
                         .Select(sortField => sortField.ToLower())
-                        .Contains(paginationSortItem.PropertyName.ToLower()));
+                        .Contains(paginationSortItem.Value.PropertyName.ToLower()))
+                    .ToDictionary(x => x.Key, x => x.Value, StringComparer.InvariantCultureIgnoreCase);
             }
         }
 
-        private IEnumerable<IPaginationFilterItem> GetFilterItemsFromQuery()
+        public IDictionary<string, IPaginationSortItem> CustomSort
+        {
+            get
+            {
+                PaginationAttribute paginationAttribut =
+                    this.httpContextAccessor.HttpContext
+                        .GetEndpoint().Metadata
+                        .GetMetadata<PaginationAttribute>();
+
+                if (paginationAttribut.CustomSortFields == null || paginationAttribut.CustomSortFields.Length == 0)
+                {
+                    return new Dictionary<string, IPaginationSortItem>();
+                }
+
+                return this.GetSortItemsFromQuery()
+                    .Where(paginationSortItem => paginationAttribut.CustomSortFields
+                        .Select(sortField => sortField.ToLower())
+                        .Contains(paginationSortItem.Value.PropertyName.ToLower()))
+                    .ToDictionary(x => x.Key, x => x.Value, StringComparer.InvariantCultureIgnoreCase);
+            }
+        }
+
+        private IDictionary<string, IPaginationFilterItem> GetFilterItemsFromQuery()
         {
             return this.httpContextAccessor.HttpContext.Request.Query
                 .Where((keyValue) =>
@@ -158,8 +183,9 @@ namespace Contract.Architecture.Backend.Core.API.Contexts.Pagination
                         PropertyValue = keyValue.Value,
                     };
 
-                    return paginationFilterItem;
-                });
+                    return new KeyValuePair<string, IPaginationFilterItem>(paginationFilterItem.PropertyName, paginationFilterItem);
+                })
+                .ToDictionary(x => x.Key, x => x.Value, StringComparer.InvariantCultureIgnoreCase);
         }
 
         private FilterType ExtractFilterType(string[] filterSplit)
@@ -191,6 +217,30 @@ namespace Contract.Architecture.Backend.Core.API.Contexts.Pagination
             }
         }
 
+        private IDictionary<string, IPaginationSortItem> GetSortItemsFromQuery()
+        {
+            return this.httpContextAccessor.HttpContext.Request.Query
+                .Where((keyValue) =>
+                {
+                    bool isEqualFilter = keyValue.Key == "sort";
+                    bool isAdvancedEqualFilter = Regex.IsMatch(keyValue.Key, @"^sort\.(asc|desc)$", RegexOptions.IgnoreCase);
+                    return isEqualFilter || isAdvancedEqualFilter;
+                })
+                .Select(keyValue =>
+                {
+                    string[] sortSplit = keyValue.Key.Split(".");
+
+                    PaginationSortItem paginationSort = new PaginationSortItem()
+                    {
+                        OrderBy = this.ExtractOrderBy(sortSplit),
+                        PropertyName = keyValue.Value,
+                    };
+
+                    return new KeyValuePair<string, IPaginationSortItem>(paginationSort.PropertyName, paginationSort);
+                })
+                .ToDictionary(x => x.Key, x => x.Value);
+        }
+
         private SortOrder ExtractOrderBy(string[] filterSplit)
         {
             if (filterSplit.Length == 2)
@@ -209,6 +259,34 @@ namespace Contract.Architecture.Backend.Core.API.Contexts.Pagination
             {
                 return SortOrder.ASC;
             }
+        }
+
+        private IEnumerable<PaginationFilterField> GetPaginationFilterFields()
+        {
+            return this.httpContextAccessor.HttpContext
+                .GetEndpoint().Metadata
+                .GetMetadata<PaginationAttribute>()
+                .FilterFields?
+                .Select(customFilterField =>
+                {
+                    return new PaginationFilterField()
+                    {
+                        PropertyName = customFilterField
+                            .Split("=")
+                            .First()
+                            .Trim(),
+                        PropertyQuery = customFilterField.Contains("=") ? customFilterField : null,
+                    };
+                });
+        }
+
+        private IEnumerable<string> GetPaginationCustomFilterFields()
+        {
+            return this.httpContextAccessor.HttpContext
+                .GetEndpoint().Metadata
+                .GetMetadata<PaginationAttribute>()
+                .CustomFilterFields?
+                .Select(customFilterField => customFilterField.Trim());
         }
     }
 }

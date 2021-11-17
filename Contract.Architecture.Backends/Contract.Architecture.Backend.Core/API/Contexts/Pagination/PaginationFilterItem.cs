@@ -8,6 +8,8 @@ namespace Contract.Architecture.Backend.Core.API.Contexts.Pagination
 
         public string PropertyValue { get; set; }
 
+        public string PropertyQuery { get; set; }
+
         public FilterType FilterType { get; set; }
     }
 }
