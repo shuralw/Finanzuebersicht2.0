@@ -1,3 +1,10 @@
+using Finanzuebersicht.Backend.Generated.Persistence.Modules.Accounting.AccountingEntries;
+using Finanzuebersicht.Backend.Generated.Persistence.Modules.Accounting.Categories;
+using Finanzuebersicht.Backend.Generated.Persistence.Modules.Accounting.CategorySearchTerms;
+using Finanzuebersicht.Backend.Generated.Persistence.Tests.Modules.Accounting.AccountingEntries;
+using Finanzuebersicht.Backend.Generated.Persistence.Tests.Modules.Accounting.Categories;
+using Finanzuebersicht.Backend.Generated.Persistence.Tests.Modules.Accounting.CategorySearchTerms;
+using Microsoft.EntityFrameworkCore;
 using SchuelerOnline.Backend.Generated.Persistence.Modules.LoginSystem.EmailUserFailedLoginAttempts;
 using SchuelerOnline.Backend.Generated.Persistence.Modules.MandantenTrennung.Mandanten;
 using SchuelerOnline.Backend.Generated.Persistence.Modules.SessionManagement.AccessTokens;
@@ -17,7 +24,6 @@ using SchuelerOnline.Backend.Generated.Persistence.Tests.Modules.UserManagement.
 using SchuelerOnline.Backend.Generated.Persistence.Tests.Modules.UserManagement.EmailUserPasswordResetTokens;
 using SchuelerOnline.Backend.Generated.Persistence.Tests.Modules.UserManagement.EmailUsers;
 using SchuelerOnline.Backend.Generated.Persistence.Tests.Modules.UserManagement.UserGroups;
-using Microsoft.EntityFrameworkCore;
 
 namespace SchuelerOnline.Backend.Generated.Persistence.Tests
 {
@@ -90,6 +96,15 @@ namespace SchuelerOnline.Backend.Generated.Persistence.Tests
             persistenceDbContext.AdGroupPermissions.Add(DbPermissionsEntry.ToEfAdGroupPermissionsEntry(AdGroupTestValues.IdDbDefault, AdGroupTestValues.PermissionsDbDefault));
             persistenceDbContext.AdGroups.Add(DbAdGroup.ToEfAdGroup(DbAdGroupTest.DbDefault2(), AdGroupTestValues.MandantIdDbDefault));
             persistenceDbContext.AdGroupPermissions.Add(DbPermissionsEntry.ToEfAdGroupPermissionsEntry(AdGroupTestValues.IdDbDefault2, AdGroupTestValues.PermissionsDbDefault2));
+
+            persistenceDbContext.AccountingEntries.Add(DbAccountingEntry.ToEfAccountingEntry(DbAccountingEntryTest.DbDefault(), AccountingEntryTestValues.EmailUserIdDbDefault));
+            persistenceDbContext.AccountingEntries.Add(DbAccountingEntry.ToEfAccountingEntry(DbAccountingEntryTest.DbDefault2(), AccountingEntryTestValues.EmailUserIdDbDefault));
+
+            persistenceDbContext.Categories.Add(DbCategory.ToEfCategory(DbCategoryTest.DbDefault(), CategoryTestValues.EmailUserIdDbDefault));
+            persistenceDbContext.Categories.Add(DbCategory.ToEfCategory(DbCategoryTest.DbDefault2(), CategoryTestValues.EmailUserIdDbDefault));
+
+            persistenceDbContext.CategorySearchTerms.Add(DbCategorySearchTerm.ToEfCategorySearchTerm(DbCategorySearchTermTest.DbDefault(), CategorySearchTermTestValues.EmailUserIdDbDefault));
+            persistenceDbContext.CategorySearchTerms.Add(DbCategorySearchTerm.ToEfCategorySearchTerm(DbCategorySearchTermTest.DbDefault2(), CategorySearchTermTestValues.EmailUserIdDbDefault));
 
             persistenceDbContext.SaveChanges();
 

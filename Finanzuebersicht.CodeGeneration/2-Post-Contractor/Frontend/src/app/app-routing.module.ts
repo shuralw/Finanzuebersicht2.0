@@ -15,6 +15,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/change-password/change-password.module').then(m => m.ChangePasswordModule)
   },
   {
+    path: 'accounting',
+    loadChildren: () => import('./pages/accounting/accounting-pages.module')
+      .then(m => m.AccountingPagesModule)
+  },
+  {
     path: '**',
     redirectTo: '/home'
   }

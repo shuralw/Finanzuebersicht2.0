@@ -1,4 +1,11 @@
-﻿using SchuelerOnline.Backend.Generated.Contract.Persistence.Modules.LoginSystem.EmailUserFailedLoginAttempts;
+using Finanzuebersicht.Backend.Generated.Contract.Persistence.Modules.Accounting.AccountingEntries;
+using Finanzuebersicht.Backend.Generated.Contract.Persistence.Modules.Accounting.Categories;
+using Finanzuebersicht.Backend.Generated.Contract.Persistence.Modules.Accounting.CategorySearchTerms;
+using Finanzuebersicht.Backend.Generated.Persistence.Modules.Accounting.AccountingEntries;
+using Finanzuebersicht.Backend.Generated.Persistence.Modules.Accounting.Categories;
+using Finanzuebersicht.Backend.Generated.Persistence.Modules.Accounting.CategorySearchTerms;
+using Microsoft.Extensions.DependencyInjection;
+using SchuelerOnline.Backend.Generated.Contract.Persistence.Modules.LoginSystem.EmailUserFailedLoginAttempts;
 using SchuelerOnline.Backend.Generated.Contract.Persistence.Modules.MandantenTrennung.Mandanten;
 using SchuelerOnline.Backend.Generated.Contract.Persistence.Modules.SessionManagement.AccessTokens;
 using SchuelerOnline.Backend.Generated.Contract.Persistence.Modules.SessionManagement.RefreshTokens;
@@ -16,7 +23,6 @@ using SchuelerOnline.Backend.Generated.Persistence.Modules.UserManagement.AdUser
 using SchuelerOnline.Backend.Generated.Persistence.Modules.UserManagement.EmailUserPasswordReset;
 using SchuelerOnline.Backend.Generated.Persistence.Modules.UserManagement.EmailUsers;
 using SchuelerOnline.Backend.Generated.Persistence.Modules.UserManagement.UserGroups;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace SchuelerOnline.Backend.Generated.Persistence
 {
@@ -27,6 +33,7 @@ namespace SchuelerOnline.Backend.Generated.Persistence
             services.AddHealthChecks().AddDbContextCheck<PersistenceDbContext>();
             services.AddDbContext<PersistenceDbContext>();
 
+            StartupAccounting(services);
             StartupLogin(services);
             StartupMandanten(services);
             StartupUserManagement(services);
@@ -60,6 +67,18 @@ namespace SchuelerOnline.Backend.Generated.Persistence
             services.AddScoped<IEmailUsersCrudRepository, EmailUsersCrudRepository>();
             services.AddScoped<IUserGroupMembershipRepository, UserGroupMembershipRepository>();
             services.AddScoped<IUserGroupsCrudRepository, UserGroupsCrudRepository>();
+        }
+
+        private static void StartupAccounting(IServiceCollection services)
+        {
+            // AccountingEntries
+            services.AddScoped<IAccountingEntriesCrudRepository, AccountingEntriesCrudRepository>();
+
+            // Categories
+            services.AddScoped<ICategoriesCrudRepository, CategoriesCrudRepository>();
+
+            // CategorySearchTerms
+            services.AddScoped<ICategorySearchTermsCrudRepository, CategorySearchTermsCrudRepository>();
         }
     }
 }

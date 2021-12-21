@@ -1,4 +1,12 @@
-﻿using SchuelerOnline.Backend.Generated.Contract.Logic.Modules.LoginSystem.Ad;
+using Finanzuebersicht.Backend.Generated.Contract.Logic.Modules.Accounting.AccountingEntries;
+using Finanzuebersicht.Backend.Generated.Contract.Logic.Modules.Accounting.Categories;
+using Finanzuebersicht.Backend.Generated.Contract.Logic.Modules.Accounting.CategorySearchTerms;
+using Finanzuebersicht.Backend.Generated.Logic.Modules.Accounting.AccountingEntries;
+using Finanzuebersicht.Backend.Generated.Logic.Modules.Accounting.Categories;
+using Finanzuebersicht.Backend.Generated.Logic.Modules.Accounting.CategorySearchTerms;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using SchuelerOnline.Backend.Generated.Contract.Logic.Modules.LoginSystem.Ad;
 using SchuelerOnline.Backend.Generated.Contract.Logic.Modules.LoginSystem.EmailUser;
 using SchuelerOnline.Backend.Generated.Contract.Logic.Modules.LoginSystem.MandantLoginAsGlobalAdmin;
 using SchuelerOnline.Backend.Generated.Contract.Logic.Modules.MandantenTrennung.Mandanten;
@@ -36,8 +44,6 @@ using SchuelerOnline.Backend.Generated.Logic.SystemConnections.SsoAuthentication
 using SchuelerOnline.Backend.Generated.Logic.Tools.Identifier;
 using SchuelerOnline.Backend.Generated.Logic.Tools.Password;
 using SchuelerOnline.Backend.Generated.Logic.Tools.Time;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace SchuelerOnline.Backend.Generated.Logic
 {
@@ -45,6 +51,7 @@ namespace SchuelerOnline.Backend.Generated.Logic
     {
         public static void Startup(IServiceCollection services, IConfiguration configuration)
         {
+            StartupAccounting(services);
             StartupLogin(services, configuration);
             StartupMandanten(services);
             StartupSessions(services, configuration);
@@ -138,6 +145,18 @@ namespace SchuelerOnline.Backend.Generated.Logic
 
             // SHA256 Token
             services.AddSingleton<ISHA256TokenGenerator, SHA256TokenGenerator>();
+        }
+
+        private static void StartupAccounting(IServiceCollection services)
+        {
+            // AccountingEntries
+            services.AddScoped<IAccountingEntriesCrudLogic, AccountingEntriesCrudLogic>();
+
+            // Categories
+            services.AddScoped<ICategoriesCrudLogic, CategoriesCrudLogic>();
+
+            // CategorySearchTerms
+            services.AddScoped<ICategorySearchTermsCrudLogic, CategorySearchTermsCrudLogic>();
         }
     }
 }
