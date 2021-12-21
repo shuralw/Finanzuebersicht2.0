@@ -1,7 +1,0 @@
-{
-  "BackendDestinationFolder": ".",
-  "DbDestinationFolder": "..\\..\\Finanzuebersicht.Databases\\Finanzuebersicht.Database.Core",
-  "FrontendDestinationFolder": "..\\..\\Finanzuebersicht.Frontends\\Finanzuebersicht.Web.Core",
-  "ProjectName": "Finanzuebersicht.Backend.Core",
-  "DbProjectName": "Finanzuebersicht.Database.Core"
-}

@@ -1,4 +1,0 @@
-output
-
-nlog*.config
-!nlog.template.config

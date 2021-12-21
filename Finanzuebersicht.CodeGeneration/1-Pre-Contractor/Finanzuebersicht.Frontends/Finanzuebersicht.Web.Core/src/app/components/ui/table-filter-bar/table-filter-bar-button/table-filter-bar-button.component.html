@@ -1,5 +1,0 @@
-<button [attr.aria-label]="getAriaLabel()" (click)="clicked.emit()">
-    <mat-icon *ngIf="matIconName">{{matIconName}}</mat-icon>
-    <div class="spacer" *ngIf="matIconName && text"></div>
-    <span *ngIf="text">{{text}}</span>
-</button>
