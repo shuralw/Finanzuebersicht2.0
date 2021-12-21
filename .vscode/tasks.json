@@ -9,7 +9,7 @@
             ]
         },
         {
-            "label": "Contract.Architecture.Backend.Core Start",
+            "label": "Finanzuebersicht.Backend.Core Start",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -18,16 +18,16 @@
                 "API"
             ],
             "options": {
-                "cwd": "Contract.Architecture.Backends\\Contract.Architecture.Backend.Core"
+                "cwd": "Finanzuebersicht.Backends\\Finanzuebersicht.Backend.Core"
             },
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "Contract.Architecture.Web.Core Start",
+            "label": "Finanzuebersicht.Web.Core Start",
             "type": "shell",
             "command": "npm start",
             "options": {
-                "cwd": "Contract.Architecture.Frontends\\Contract.Architecture.Web.Core"
+                "cwd": "Finanzuebersicht.Frontends\\Finanzuebersicht.Web.Core"
             }
         }
     ]

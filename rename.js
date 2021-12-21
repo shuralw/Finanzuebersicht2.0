@@ -8,9 +8,9 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-rl.question('Wie heißt das Projekt aktuell? (Empty = Contract.Architecture) ', (oldName) => {
+rl.question('Wie heißt das Projekt aktuell? (Empty = Finanzuebersicht) ', (oldName) => {
     if (!oldName || oldName.trim().length === 0) {
-        oldName = 'Contract.Architecture';
+        oldName = 'Finanzuebersicht';
     }
 
     rl.question('Wie soll das Projekt heißen? ', (newName) => {
