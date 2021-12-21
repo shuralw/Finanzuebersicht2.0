@@ -1,0 +1,33 @@
+button {
+    height: 1.8em;
+    margin: 0.2em;
+    padding: 0.2em 0.4em;
+
+    border: none;
+    background-color: transparent;
+    
+    font-size: 1em;
+    
+    &:hover,
+    &.open,
+    &:focus-within {
+        background-color: #c6c6c6;
+    }
+
+    mat-icon {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    span {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .spacer {
+        display: inline-block;
+        vertical-align: middle;
+        width: 0.2em;
+        height: 1px;
+    }
+}

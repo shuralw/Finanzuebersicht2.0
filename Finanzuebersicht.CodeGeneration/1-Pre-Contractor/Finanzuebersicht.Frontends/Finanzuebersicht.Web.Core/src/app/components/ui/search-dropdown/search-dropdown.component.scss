@@ -1,0 +1,14 @@
+mat-form-field {
+    width: 100%;
+
+    ::ng-deep .mat-select-value {
+        width: 100%;
+    }
+}
+
+.loading-item {
+    margin: 8px;
+    justify-content: center;
+    display: grid;
+    overflow: hidden;
+}
