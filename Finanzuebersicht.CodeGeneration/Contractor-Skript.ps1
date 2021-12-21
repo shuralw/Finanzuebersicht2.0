@@ -16,23 +16,24 @@ contractor add relation 1:n Accounting.Category:Categories Accounting.CategorySe
 
 ########## Properties ##########
 
-contractor add property integer LegacyBetriebsschluessel -e Ausbildungspartner.Betrieb:Betriebe
-contractor add property string:16 LegacyBetriebskuerzel -e Ausbildungspartner.Betrieb:Betriebe
-contractor add property boolean StandardDatenfreigabeFuerAnmeldung -e Ausbildungspartner.Betrieb:Betriebe
-contractor add property string:30 -e Accounting.Auftragskonto
-contractor add property DateTime -e Accounting.Buchungsdatum
-contractor add property DateTime -e Accounting.ValutaDatum
-contractor add property string:300 -e Accounting.Buchungstext
-contractor add property string:300 -e Accounting.Verwendungszweck
-contractor add property string:100 -e Accounting.GlaeubigerId
-contractor add property string:100 -e Accounting.Mandatsreferenz
-contractor add property string:100 -e Accounting.Sammlerreferenz
-contractor add property double -e Accounting.Lastschrift_Ursprungsbetrag
-contractor add property string:100 -e Accounting.Auslagenersatz_Ruecklastschrift
-contractor add property string:200 -e Accounting.Beguenstigter
-contractor add property string:22 -e Accounting.IBAN
-contractor add property string:15 -e Accounting.BIC
-contractor add property double -e Accounting.Betrag
-contractor add property string:10 -e Accounting.Waehrung
-contractor add property string:100 -e Accounting.Info
+contractor add property string:30 Auftragskonto -e Accounting.AccountingEntry:AccountingEntries
+contractor add property DateTime Buchungsdatum -e Accounting.AccountingEntry:AccountingEntries
+contractor add property DateTime ValutaDatum -e Accounting.AccountingEntry:AccountingEntries
+contractor add property string:300 Buchungstext -e Accounting.AccountingEntry:AccountingEntries
+contractor add property string:300 Verwendungszweck -e Accounting.AccountingEntry:AccountingEntries
+contractor add property string:100 GlaeubigerId -e Accounting.AccountingEntry:AccountingEntries
+contractor add property string:100 Mandatsreferenz -e Accounting.AccountingEntry:AccountingEntries
+contractor add property string:100 Sammlerreferenz -e Accounting.AccountingEntry:AccountingEntries
+contractor add property double LastschriftUrsprungsbetrag -e Accounting.AccountingEntry:AccountingEntries
+contractor add property string:100 AuslagenersatzRuecklastschrift -e Accounting.AccountingEntry:AccountingEntries
+contractor add property string:200 Beguenstigter -e Accounting.AccountingEntry:AccountingEntries
+contractor add property string:22 IBAN -e Accounting.AccountingEntry:AccountingEntries
+contractor add property string:15 BIC -e Accounting.AccountingEntry:AccountingEntries
+contractor add property double Betrag -e Accounting.AccountingEntry:AccountingEntries
+contractor add property string:10 Waehrung -e Accounting.AccountingEntry:AccountingEntries
+contractor add property string:100 Info -e Accounting.AccountingEntry:AccountingEntries
 
+contractor add property string:200 Title -e Accounting.Category:Categories
+contractor add property string:30 Color -e Accounting.Category:Categories
+
+contractor add property string:100 Term -e Accounting.CategorySearchTerm:CategorySearchTerms
