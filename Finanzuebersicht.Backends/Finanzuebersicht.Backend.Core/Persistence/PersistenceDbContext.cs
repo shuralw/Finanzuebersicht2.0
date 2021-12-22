@@ -1,4 +1,7 @@
-﻿using Finanzuebersicht.Backend.Core.Persistence.Modules.SessionManagement.Sessions;
+﻿using Finanzuebersicht.Backend.Core.Persistence.Modules.Accounting.AccountingEntries;
+using Finanzuebersicht.Backend.Core.Persistence.Modules.Accounting.Categories;
+using Finanzuebersicht.Backend.Core.Persistence.Modules.Accounting.CategorySearchTerms;
+using Finanzuebersicht.Backend.Core.Persistence.Modules.SessionManagement.Sessions;
 using Finanzuebersicht.Backend.Core.Persistence.Modules.UserManagement.EmailUserPasswortReset;
 using Finanzuebersicht.Backend.Core.Persistence.Modules.UserManagement.EmailUsers;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +28,13 @@ namespace Finanzuebersicht.Backend.Core.Persistence
         public virtual DbSet<EfEmailUserPasswordResetToken> EmailUserPasswordResetTokens { get; set; }
 
         public virtual DbSet<EfSession> Sessions { get; set; }
+
+        // Fachliche Module
+        public virtual DbSet<EfAccountingEntry> AccountingEntries { get; set; }
+
+        public virtual DbSet<EfCategory> Categories { get; set; }
+
+        public virtual DbSet<EfCategorySearchTerm> CategorySearchTerms { get; set; }
 
         public static PersistenceDbContext CustomInstantiate(DbContextOptions<PersistenceDbContext> options)
         {
@@ -93,6 +103,106 @@ namespace Finanzuebersicht.Backend.Core.Persistence
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<EfAccountingEntry>(entity =>
+            {
+                entity.ToTable("AccountingEntries");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.AccountingEntries)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK_AccountingEntries_CategoryId");
+
+                entity.Property(e => e.Auftragskonto)
+                    .IsRequired()
+                    .HasMaxLength(30);
+
+                entity.Property(e => e.Buchungsdatum).HasColumnType("datetime");
+
+                entity.Property(e => e.ValutaDatum).HasColumnType("datetime");
+
+                entity.Property(e => e.Buchungstext)
+                    .IsRequired()
+                    .HasMaxLength(300);
+
+                entity.Property(e => e.Verwendungszweck)
+                    .IsRequired()
+                    .HasMaxLength(300);
+
+                entity.Property(e => e.GlaeubigerId)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Mandatsreferenz)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Sammlerreferenz)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.AuslagenersatzRuecklastschrift)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Beguenstigter)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.IBAN)
+                    .IsRequired()
+                    .HasMaxLength(22);
+
+                entity.Property(e => e.BIC)
+                    .IsRequired()
+                    .HasMaxLength(15);
+
+                entity.Property(e => e.Waehrung)
+                    .IsRequired()
+                    .HasMaxLength(10);
+
+                entity.Property(e => e.Info)
+                    .IsRequired()
+                    .HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<EfCategory>(entity =>
+            {
+                entity.ToTable("Categories");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.SuperCategory)
+                    .WithMany(p => p.ChildCategories)
+                    .HasForeignKey(d => d.SuperCategoryId)
+                    .HasConstraintName("FK_Categories_SuperCategoryId");
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.Color)
+                    .IsRequired()
+                    .HasMaxLength(30);
+            });
+
+            modelBuilder.Entity<EfCategorySearchTerm>(entity =>
+            {
+                entity.ToTable("CategorySearchTerms");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.CategorySearchTerms)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK_CategorySearchTerms_CategoryId");
+
+                entity.Property(e => e.Term)
+                    .IsRequired()
+                    .HasMaxLength(100);
             });
 
             this.OnModelCreatingPartial(modelBuilder);

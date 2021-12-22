@@ -1,6 +1,12 @@
-﻿using Finanzuebersicht.Backend.Core.Contract.Persistence.Modules.SessionManagement.Sessions;
+﻿using Finanzuebersicht.Backend.Core.Contract.Persistence.Modules.Accounting.AccountingEntries;
+using Finanzuebersicht.Backend.Core.Contract.Persistence.Modules.Accounting.Categories;
+using Finanzuebersicht.Backend.Core.Contract.Persistence.Modules.Accounting.CategorySearchTerms;
+using Finanzuebersicht.Backend.Core.Contract.Persistence.Modules.SessionManagement.Sessions;
 using Finanzuebersicht.Backend.Core.Contract.Persistence.Modules.UserManagement.EmailUserPasswortResetTokens;
 using Finanzuebersicht.Backend.Core.Contract.Persistence.Modules.UserManagement.EmailUsers;
+using Finanzuebersicht.Backend.Core.Persistence.Modules.Accounting.AccountingEntries;
+using Finanzuebersicht.Backend.Core.Persistence.Modules.Accounting.Categories;
+using Finanzuebersicht.Backend.Core.Persistence.Modules.Accounting.CategorySearchTerms;
 using Finanzuebersicht.Backend.Core.Persistence.Modules.SessionManagement.Sessions;
 using Finanzuebersicht.Backend.Core.Persistence.Modules.UserManagement.EmailUserPasswortReset;
 using Finanzuebersicht.Backend.Core.Persistence.Modules.UserManagement.EmailUsers;
@@ -27,6 +33,18 @@ namespace Finanzuebersicht.Backend.Core.Persistence
         private static void StartupSessions(IServiceCollection services)
         {
             services.AddScoped<ISessionsRepository, SessionsRepository>();
+        }
+
+        private static void StartupAccounting(IServiceCollection services)
+        {
+            // AccountingEntries
+            services.AddScoped<IAccountingEntriesCrudRepository, AccountingEntriesCrudRepository>();
+
+            // Categories
+            services.AddScoped<ICategoriesCrudRepository, CategoriesCrudRepository>();
+
+            // CategorySearchTerms
+            services.AddScoped<ICategorySearchTermsCrudRepository, CategorySearchTermsCrudRepository>();
         }
     }
 }
